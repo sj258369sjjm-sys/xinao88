@@ -1,68 +1,207 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>新澳特曼数据统计论坛</title>
 
 <style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Microsoft YaHei",Arial;
+}
+
 body{
-    margin:0;
-    font-size:14px;
-    background:#fff;
-    color:#111;
+background:#05060a;
+color:#fff;
+overflow-x:hidden;
 }
 
-/* 纯红主题 */
-.header{
-    background:#ff0000;
-    color:#fff;
-    padding:10px;
-    text-align:center;
-    font-size:16px;
+/* 🔴 红色科技网格 */
+body::before{
+content:"";
+position:fixed;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(rgba(255,0,60,.10) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,0,60,.10) 1px,transparent 1px);
+background-size:42px 42px;
+animation:gridMove 12s linear infinite;
+z-index:-2;
 }
 
-/* 内容区 */
+@keyframes gridMove{
+from{transform:translateY(0);}
+to{transform:translateY(42px);}
+}
+
+/* 🔴 扫描线（更柔和） */
+.scan{
+position:fixed;
+width:100%;
+height:80px;
+background:linear-gradient(
+to bottom,
+transparent,
+rgba(255,0,60,.18),
+transparent
+);
+animation:scan 6s linear infinite;
+z-index:-1;
+}
+
+@keyframes scan{
+0%{top:-100px;}
+100%{top:100%;}
+}
+
+/* 主容器 */
 .container{
-    padding:10px;
+width:92%;
+max-width:680px;
+margin:auto;
+padding:20px 12px 60px;
 }
 
-/* 卡片缩小适配手机 */
-.box{
-    background:#f8f8f8;
-    margin-bottom:10px;
-    padding:10px;
-    border-radius:6px;
-    font-size:13px;
+/* 标题 */
+.title{
+font-size:30px;
+font-weight:bold;
+text-align:center;
+margin-top:18px;
+color:#ff1e4d;
+text-shadow:0 0 18px rgba(255,0,60,.8);
 }
 
-/* 公告（现在放最后） */
-.footer-announcement{
-    margin-top:20px;
-    padding:10px;
-    background:#ffe5e5;
-    border-left:4px solid #ff0000;
-    font-size:12px;
+/* 描述（手机更友好） */
+.desc{
+margin-top:14px;
+font-size:18px;
+line-height:1.6;
+text-align:center;
+color:#d9d9d9;
+}
+
+/* 公告 */
+.notice{
+margin-top:20px;
+background:#12070a;
+border-left:4px solid #ff1e4d;
+padding:14px;
+border-radius:8px;
+font-size:14px;
+line-height:1.6;
+color:#ffd6dc;
+}
+
+/* 内容块 */
+.block{
+margin-top:20px;
+background:#0d0f14;
+border:1px solid rgba(255,30,77,.35);
+border-radius:10px;
+padding:16px;
+}
+
+.block h2{
+color:#ff3b66;
+margin-bottom:12px;
+font-size:18px;
+}
+
+/* 发布区 */
+.publish{
+margin-top:12px;
+border:1px dashed rgba(255,30,77,.6);
+padding:16px;
+text-align:center;
+font-size:15px;
+color:#ffb3c1;
+border-radius:8px;
+}
+
+/* 论坛帖子 */
+.post{
+background:#151823;
+padding:14px;
+margin-top:12px;
+border-radius:8px;
+border-left:3px solid #ff1e4d;
+}
+
+.post-title{
+font-size:16px;
+font-weight:bold;
+margin-bottom:6px;
+color:#ff4d6d;
+}
+
+.post-text{
+font-size:14px;
+line-height:1.6;
+color:#e8e8e8;
+}
+
+/* 底部 */
+.footer{
+margin-top:30px;
+text-align:center;
+font-size:12px;
+color:#888;
+}
+
+/* 📱 手机优化 */
+@media (max-width:480px){
+.title{font-size:24px;}
+.desc{font-size:15px;}
+.block h2{font-size:16px;}
+.post-title{font-size:15px;}
+.post-text{font-size:13px;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-新澳特曼数据统计论坛
-</div>
+<div class="scan"></div>
 
 <div class="container">
 
-    <div class="box">数据模块 1</div>
-    <div class="box">数据模块 2</div>
-    <div class="box">数据模块 3</div>
+<div class="title">新澳特曼数据统计论坛</div>
 
-    <!-- 👉 公告已移动到最下面 -->
-    <div class="footer-announcement">
-        公告：这里是最新通知内容
-    </div>
+<div class="desc">
+自动脚本实时采集<br>
+</div>
+
+<div class="notice">
+📢 公告：系统正在持续优化中，数据仅供参考。
+</div>
+
+<div class="block">
+<h2>📋 最新内容</h2>
+
+<div class="publish">
+↓↓↓↓ 内容发布区域 ↓↓↓↓<br><br>
+这里未来将显示实时更新数据与用户内容
+</div>
+
+<div class="post">
+<div class="post-title">【示例内容】</div>
+<div class="post-text">
+这里将展示最新论坛动态与统计结果。
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+© 2026 新澳特曼数据统计论坛
+</div>
 
 </div>
 
