@@ -16,236 +16,149 @@ font-family:"Microsoft YaHei",Arial;
 }
 
 body{
-
 background:#06192f;
 color:white;
 overflow-x:hidden;
-
 }
 
 /* 科技网格 */
-
 body::before{
-
 content:"";
-
 position:fixed;
-
 left:0;
-
 top:0;
-
 width:100%;
-
 height:100%;
-
 background-image:
 linear-gradient(rgba(0,180,255,.08) 1px,transparent 1px),
 linear-gradient(90deg,rgba(0,180,255,.08) 1px,transparent 1px);
-
 background-size:40px 40px;
-
 animation:gridMove 10s linear infinite;
-
 z-index:-2;
-
 }
 
 @keyframes gridMove{
-
-from{
-
-transform:translateY(0);
-
-}
-
-to{
-
-transform:translateY(40px);
-
-}
-
+from{transform:translateY(0);}
+to{transform:translateY(40px);}
 }
 
 /* 扫描线 */
-
 .scan{
-
 position:fixed;
-
 width:100%;
-
 height:120px;
-
-background:linear-gradient(
-to bottom,
-transparent,
-rgba(0,255,255,.18),
-transparent
-);
-
+background:linear-gradient(to bottom,transparent,rgba(0,255,255,.18),transparent);
 animation:scan 5s linear infinite;
-
 z-index:-1;
-
 }
 
 @keyframes scan{
-
 0%{top:-120px;}
-
 100%{top:100%;}
-
 }
 
 .container{
-
 width:95%;
-
 max-width:700px;
-
 margin:auto;
-
 padding:25px 15px 60px;
-
 }
 
+/* 🔴标题修改：纯红 + 缩放动画 */
 .title{
-
-font-size:34px;
-
+font-size:30px;
 font-weight:bold;
-
 text-align:center;
-
 margin-top:20px;
+color:#ff0000;
+text-shadow:0 0 18px #ff0000;
+animation:titlePulse 2.5s ease-in-out infinite;
+}
 
-color:#53d8ff;
-
-text-shadow:0 0 15px #00bfff;
-
+@keyframes titlePulse{
+0%,100%{transform:scale(1);}
+50%{transform:scale(1.05);}
 }
 
 .desc{
-
 margin-top:18px;
-
-font-size:24px;
-
+font-size:22px;
 line-height:1.8;
-
 text-align:center;
-
 color:#d8f4ff;
-
 }
 
+/* 内容块 */
 .notice{
-
 margin-top:25px;
-
 background:#0b2745;
-
 border-left:5px solid #00d5ff;
-
 padding:16px;
-
 border-radius:8px;
-
 font-size:16px;
-
 line-height:1.7;
-
 }
 
 .block{
-
 margin-top:25px;
-
 background:#102d4d;
-
 border:1px solid #1fa8ff;
-
 border-radius:8px;
-
 padding:18px;
-
 }
 
 .block h2{
-
 color:#52d6ff;
-
 margin-bottom:15px;
-
 font-size:22px;
-
 }
 
 .post{
-
 background:#183b62;
-
 padding:16px;
-
 margin-top:15px;
-
 border-radius:6px;
-
 border-left:4px solid #00d5ff;
-
 }
 
 .post-title{
-
 font-size:18px;
-
 font-weight:bold;
-
 margin-bottom:8px;
-
 }
 
 .post-text{
-
 font-size:16px;
-
 line-height:1.7;
-
 color:#eef8ff;
-
 }
 
-/* 发布提示 */
-
 .publish{
-
 margin-top:20px;
-
 border:2px dashed #00d5ff;
-
 padding:20px;
-
 text-align:center;
-
 font-size:18px;
-
 color:#8bdfff;
-
 }
 
 /* 底部 */
-
 .footer{
-
 margin-top:35px;
-
 text-align:center;
-
 font-size:14px;
-
 color:#9ec9df;
+}
 
+/* 公告（已移动到底部） */
+.bottom-notice{
+margin-top:30px;
+background:#0b2745;
+border-left:5px solid #00d5ff;
+padding:16px;
+border-radius:8px;
+font-size:16px;
+line-height:1.7;
 }
 
 </style>
@@ -259,25 +172,13 @@ color:#9ec9df;
 <div class="container">
 
 <div class="title">
-
 新澳特曼数据统计论坛
-
 </div>
 
 <div class="desc">
-
 自动脚本每期采集<br>
-
 统计全网10万人特围<br>
-
-实时更新 · 数据分析 · 智能统计
-
-</div>
-
-<div class="notice">
-
-📢 公告：本站数据持续更新中，请以最新统计结果为准。
-
+蝙蝠群ID:15835326
 </div>
 
 <div class="block">
@@ -285,43 +186,43 @@ color:#9ec9df;
 <h2>📋 最新论坛内容</h2>
 
 <div class="publish">
-
 ↓↓↓↓↓↓↓↓↓↓<br><br>
-
-<strong>这里是内容发布区域</strong><br><br>
-
-以后文字、图片都会显示在这里。<br>
-
-升级数据库后，所有用户发布的内容都会自动排列显示。
-
+<strong>内容发布区域</strong><br><br>
+系统自动同步显示最新数据
 </div>
 
-<!-- 示例 -->
-
+<!-- 新增内容 -->
 <div class="post">
-
-<div class="post-title">
-
-【示例】
-
-</div>
-
+<div class="post-title">168期新澳数据统计</div>
 <div class="post-text">
+168期新澳：收藏半数围低中率1000人<br>
+转提1千人主号1.2.3码再统计<br>
+-主0次--防1次-<br><br>
 
-这里以后会显示论坛最新发布的内容。
+〖0次〗:03,05,06,07,09,11,15,16,18,26,29,30,38,39,41,46,47，（共17个）<br>
+〖1次〗:01,04,10,13,19,20,21,28,40,49，（共10个）<br>
+---------------------------<br>
+〖2次〗:02,08,12,14,22,24,25,32,33,35,36,37，（共12个）-杀<br>
+〖3次〗:27,31,43,44,45,48，（共6个）-杀<br>
+〖4次〗:23,34，（共2个）-杀<br>
+〖5次〗:17,42，（共2个）-杀<br><br>
 
+--------------------------------<br>
+防号：01,04,10,13,19,20,21,28,40,49,<br>
+主号：03,05,06,07,09,11,15,16,18,26,29,30,38,39,41,46,47,
+</div>
 </div>
 
 </div>
 
+<!-- 底部公告（已移动） -->
+<div class="bottom-notice">
+📢 公告：本站数据持续更新中
 </div>
 
 <div class="footer">
-
 © 2026 新澳特曼数据统计论坛<br>
-
 DATA ANALYSIS SYSTEM ONLINE
-
 </div>
 
 </div>
