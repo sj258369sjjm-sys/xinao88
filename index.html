@@ -1,64 +1,260 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>新澳特曼数据统计论坛</title>
 
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Microsoft YaHei",Arial;
+}
+
 body{
-  background:#bfe9ff;
-  font-family:Arial;
-  text-align:center;
-  margin:0;
+background:linear-gradient(-45deg,#0f6cff,#31b7ff,#89e4ff,#d7f6ff);
+background-size:400% 400%;
+animation:bgMove 15s ease infinite;
+overflow-x:hidden;
+color:white;
 }
 
-h1{font-size:60px;margin-top:80px;}
-
-.btn{
-  display:inline-block;
-  margin:10px;
-  padding:15px 25px;
-  background:white;
-  border-radius:10px;
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
-#adminPanel{
-  display:none;
-  margin-top:30px;
+/* 科技网格 */
+
+.grid{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
+background-size:40px 40px;
+animation:gridMove 12s linear infinite;
+z-index:-2;
 }
+
+@keyframes gridMove{
+from{transform:translateY(0);}
+to{transform:translateY(40px);}
+}
+
+/* 扫描线 */
+
+.scan{
+position:fixed;
+left:0;
+top:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(180deg,transparent,rgba(255,255,255,.18),transparent);
+animation:scan 6s linear infinite;
+z-index:-1;
+}
+
+@keyframes scan{
+0%{top:-100%;}
+100%{top:100%;}
+}
+
+.container{
+
+padding:40px 20px;
+
+text-align:center;
+
+}
+
+h1{
+
+font-size:68px;
+
+margin-top:20px;
+
+text-shadow:0 0 15px white;
+
+animation:float 3s ease-in-out infinite;
+
+}
+
+@keyframes float{
+
+50%{
+
+transform:translateY(-8px);
+
+}
+
+}
+
+.desc{
+
+font-size:34px;
+
+margin-top:25px;
+
+font-weight:bold;
+
+line-height:1.7;
+
+}
+
+.notice{
+
+margin:50px auto;
+
+max-width:900px;
+
+background:rgba(255,255,255,.15);
+
+backdrop-filter:blur(12px);
+
+padding:20px;
+
+border-radius:15px;
+
+font-size:24px;
+
+}
+
+.content{
+
+margin:40px auto;
+
+max-width:900px;
+
+background:white;
+
+color:#222;
+
+padding:25px;
+
+border-radius:18px;
+
+min-height:350px;
+
+text-align:left;
+
+box-shadow:0 0 20px rgba(0,0,0,.2);
+
+}
+
+.content h2{
+
+text-align:center;
+
+color:#007bff;
+
+margin-bottom:20px;
+
+}
+
+.tip{
+
+border:2px dashed #4da6ff;
+
+padding:20px;
+
+border-radius:12px;
+
+font-size:22px;
+
+color:#666;
+
+text-align:center;
+
+}
+
+.footer{
+
+margin:60px 0 20px;
+
+font-size:18px;
+
+opacity:.8;
+
+text-align:center;
+
+animation:blink 2s infinite;
+
+}
+
+@keyframes blink{
+
+50%{
+
+opacity:.4;
+
+}
+
+}
+
 </style>
-
-<script>
-function login(){
-  let pass = prompt("请输入管理员密码：");
-  if(pass === "123456"){
-    document.getElementById("adminPanel").style.display = "block";
-    alert("已进入管理员模式");
-  } else {
-    alert("密码错误");
-  }
-}
-</script>
 
 </head>
 
 <body>
 
+<div class="grid"></div>
+
+<div class="scan"></div>
+
+<div class="container">
+
 <h1>新澳特曼数据统计论坛</h1>
 
-<p>自动脚本每期采集
- 统计全网10万人特围</p>
+<div class="desc">
 
-<div>
-  <div class="btn">📝 文字内容区（公开）</div>
+自动脚本每期采集<br>
+
+统计全网10万人特围<br>
+
+实时更新 · 智能分析 · 数据统计
+
 </div>
 
-<button onclick="login()" class="btn">🔐 管理员入口</button>
+<div class="notice">
 
-<div id="adminPanel">
-  <h2>管理员控制台</h2>
-  <div class="btn">📷 上传图片</div>
-  <div class="btn">🎥 上传视频</div>
+📢 公告：本站数据仅供学习交流参考，系统持续更新中……
+
+</div>
+
+<div class="content">
+
+<h2>📋 最新论坛内容</h2>
+
+<div class="tip">
+
+↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓<br><br>
+
+<strong>这里是论坛内容发布区域</strong><br><br>
+
+以后你发布的所有文字内容都会显示在这里。<br>
+
+（升级 Firebase 后，所有用户发布的内容也会同步显示在这里。）
+
+</div>
+
+</div>
+
+<div class="footer">
+
+© 2026 新澳特曼数据统计论坛<br>
+
+DATA ANALYSIS SYSTEM ONLINE...
+
+</div>
+
 </div>
 
 </body>
