@@ -1,328 +1,68 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>新澳特曼数据统计论坛</title>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:"Microsoft YaHei",Arial;
-}
-
 body{
-
-background:#06192f;
-color:white;
-overflow-x:hidden;
-
+    margin:0;
+    font-size:14px;
+    background:#fff;
+    color:#111;
 }
 
-/* 科技网格 */
-
-body::before{
-
-content:"";
-
-position:fixed;
-
-left:0;
-
-top:0;
-
-width:100%;
-
-height:100%;
-
-background-image:
-linear-gradient(rgba(0,180,255,.08) 1px,transparent 1px),
-linear-gradient(90deg,rgba(0,180,255,.08) 1px,transparent 1px);
-
-background-size:40px 40px;
-
-animation:gridMove 10s linear infinite;
-
-z-index:-2;
-
+/* 纯红主题 */
+.header{
+    background:#ff0000;
+    color:#fff;
+    padding:10px;
+    text-align:center;
+    font-size:16px;
 }
 
-@keyframes gridMove{
-
-from{
-
-transform:translateY(0);
-
-}
-
-to{
-
-transform:translateY(40px);
-
-}
-
-}
-
-/* 扫描线 */
-
-.scan{
-
-position:fixed;
-
-width:100%;
-
-height:120px;
-
-background:linear-gradient(
-to bottom,
-transparent,
-rgba(0,255,255,.18),
-transparent
-);
-
-animation:scan 5s linear infinite;
-
-z-index:-1;
-
-}
-
-@keyframes scan{
-
-0%{top:-120px;}
-
-100%{top:100%;}
-
-}
-
+/* 内容区 */
 .container{
-
-width:95%;
-
-max-width:700px;
-
-margin:auto;
-
-padding:25px 15px 60px;
-
+    padding:10px;
 }
 
-.title{
-
-font-size:34px;
-
-font-weight:bold;
-
-text-align:center;
-
-margin-top:20px;
-
-color:#53d8ff;
-
-text-shadow:0 0 15px #00bfff;
-
+/* 卡片缩小适配手机 */
+.box{
+    background:#f8f8f8;
+    margin-bottom:10px;
+    padding:10px;
+    border-radius:6px;
+    font-size:13px;
 }
 
-.desc{
-
-margin-top:18px;
-
-font-size:24px;
-
-line-height:1.8;
-
-text-align:center;
-
-color:#d8f4ff;
-
+/* 公告（现在放最后） */
+.footer-announcement{
+    margin-top:20px;
+    padding:10px;
+    background:#ffe5e5;
+    border-left:4px solid #ff0000;
+    font-size:12px;
 }
-
-.notice{
-
-margin-top:25px;
-
-background:#0b2745;
-
-border-left:5px solid #00d5ff;
-
-padding:16px;
-
-border-radius:8px;
-
-font-size:16px;
-
-line-height:1.7;
-
-}
-
-.block{
-
-margin-top:25px;
-
-background:#102d4d;
-
-border:1px solid #1fa8ff;
-
-border-radius:8px;
-
-padding:18px;
-
-}
-
-.block h2{
-
-color:#52d6ff;
-
-margin-bottom:15px;
-
-font-size:22px;
-
-}
-
-.post{
-
-background:#183b62;
-
-padding:16px;
-
-margin-top:15px;
-
-border-radius:6px;
-
-border-left:4px solid #00d5ff;
-
-}
-
-.post-title{
-
-font-size:18px;
-
-font-weight:bold;
-
-margin-bottom:8px;
-
-}
-
-.post-text{
-
-font-size:16px;
-
-line-height:1.7;
-
-color:#eef8ff;
-
-}
-
-/* 发布提示 */
-
-.publish{
-
-margin-top:20px;
-
-border:2px dashed #00d5ff;
-
-padding:20px;
-
-text-align:center;
-
-font-size:18px;
-
-color:#8bdfff;
-
-}
-
-/* 底部 */
-
-.footer{
-
-margin-top:35px;
-
-text-align:center;
-
-font-size:14px;
-
-color:#9ec9df;
-
-}
-
 </style>
-
 </head>
 
 <body>
 
-<div class="scan"></div>
+<div class="header">
+新澳特曼数据统计论坛
+</div>
 
 <div class="container">
 
-<div class="title">
+    <div class="box">数据模块 1</div>
+    <div class="box">数据模块 2</div>
+    <div class="box">数据模块 3</div>
 
-新澳特曼数据统计论坛
-
-</div>
-
-<div class="desc">
-
-自动脚本每期采集<br>
-
-统计全网10万人特围<br>
-
-蝙蝠交流群ID:15835326
-
-</div>
-
-<div class="notice">
-
-📢 公告：本站数据每晚8点更新
-
-</div>
-
-<div class="block">
-
-<h2>📋 最新论坛内容</h2>
-
-<div class="publish">
-
-↓↓↓↓↓↓↓↓↓↓<br><br>
-
-<strong>这里是内容发布区域</strong><br><br>
-
-以后文字、图片都会显示在这里。<br>
-
-升级数据库后，所有用户发布的内容都会自动排列显示。
-
-</div>
-
-<!-- 示例 -->
-
-<div class="post">
-
-<div class="post-title">
-
-【示例】
-
-</div>
-
-<div class="post-text">
-
-这里以后会显示论坛最新发布的内容。
-
-</div>
-
-</div>
-
-</div>
-
-<div class="footer">
-
-© 2026 新澳特曼数据统计论坛<br>
-
-DATA ANALYSIS SYSTEM ONLINE
-
-</div>
+    <!-- 👉 公告已移动到最下面 -->
+    <div class="footer-announcement">
+        公告：这里是最新通知内容
+    </div>
 
 </div>
 
