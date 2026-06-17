@@ -8,36 +8,65 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: #0b0f1a;
-  color: #fff;
-}
-
-.header {
+  background: linear-gradient(135deg, #b3e5ff, #e6f7ff);
+  color: #0a1a2f;
   text-align: center;
-  padding: 30px;
-  font-size: 24px;
-  background: linear-gradient(90deg,#00c6ff,#0072ff);
+  overflow: hidden;
 }
 
-.container {
-  padding: 20px;
-  text-align: center;
+/* 背景动态光点 */
+body::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 2px, transparent 2px);
+  background-size: 50px 50px;
+  animation: moveBg 20s linear infinite;
+  opacity: 0.4;
 }
 
+@keyframes moveBg {
+  from { transform: translate(0,0); }
+  to { transform: translate(-200px,-200px); }
+}
+
+/* 主标题 */
+h1 {
+  font-size: 72px; /* 原基础3倍左右 */
+  margin-top: 80px;
+  animation: float 3s ease-in-out infinite;
+  text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* 副标题 */
+p {
+  font-size: 36px;
+  opacity: 0.8;
+}
+
+/* 动态浮动 */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+/* 按钮 */
 .btn {
   display: inline-block;
-  margin: 10px;
-  padding: 12px 20px;
-  background: #1f2a44;
-  border-radius: 10px;
-  cursor: pointer;
+  margin: 20px;
+  padding: 18px 30px;
+  font-size: 28px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  transition: 0.3s;
 }
 
-.card {
-  background: #111a2e;
-  margin: 15px;
-  padding: 15px;
-  border-radius: 12px;
+.btn:hover {
+  transform: scale(1.1);
 }
 </style>
 
@@ -45,18 +74,13 @@ body {
 
 <body>
 
-<div class="header">🧠 新澳特曼数据统计论坛</div>
+<h1>🧠 新奥特曼数据统计论坛</h1>
+<p>科技感 · 简洁 · 动态界面</p>
 
-<div class="container">
-
+<div>
   <div class="btn">📷 上传图片</div>
   <div class="btn">🎥 上传视频</div>
   <div class="btn">📝 发布文字</div>
-
-</div>
-
-<div class="container">
-  <div class="card">📌 示例内容：欢迎使用你的科技主页</div>
 </div>
 
 </body>
