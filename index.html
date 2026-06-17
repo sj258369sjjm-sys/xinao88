@@ -5,83 +5,60 @@
 <title>新澳特曼数据统计论坛</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: linear-gradient(135deg, #b3e5ff, #e6f7ff);
-  color: #0a1a2f;
-  text-align: center;
-  overflow: hidden;
+body{
+  background:#bfe9ff;
+  font-family:Arial;
+  text-align:center;
+  margin:0;
 }
 
-/* 背景动态光点 */
-body::before {
-  content: "";
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.4) 2px, transparent 2px);
-  background-size: 50px 50px;
-  animation: moveBg 20s linear infinite;
-  opacity: 0.4;
+h1{font-size:60px;margin-top:80px;}
+
+.btn{
+  display:inline-block;
+  margin:10px;
+  padding:15px 25px;
+  background:white;
+  border-radius:10px;
 }
 
-@keyframes moveBg {
-  from { transform: translate(0,0); }
-  to { transform: translate(-200px,-200px); }
-}
-
-/* 主标题 */
-h1 {
-  font-size: 72px; /* 原基础3倍左右 */
-  margin-top: 80px;
-  animation: float 3s ease-in-out infinite;
-  text-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* 副标题 */
-p {
-  font-size: 36px;
-  opacity: 0.8;
-}
-
-/* 动态浮动 */
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0px); }
-}
-
-/* 按钮 */
-.btn {
-  display: inline-block;
-  margin: 20px;
-  padding: 18px 30px;
-  font-size: 28px;
-  background: rgba(255,255,255,0.6);
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  backdrop-filter: blur(10px);
-  transition: 0.3s;
-}
-
-.btn:hover {
-  transform: scale(1.1);
+#adminPanel{
+  display:none;
+  margin-top:30px;
 }
 </style>
+
+<script>
+function login(){
+  let pass = prompt("请输入管理员密码：");
+  if(pass === "123456"){
+    document.getElementById("adminPanel").style.display = "block";
+    alert("已进入管理员模式");
+  } else {
+    alert("密码错误");
+  }
+}
+</script>
 
 </head>
 
 <body>
 
-<h1>新奥特曼数据统计论坛</h1>
+<h1>新澳特曼数据统计论坛</h1>
+
 <p>自动脚本每期采集
-  统计全网10万人特</p>
+ 统计全网10万人特围</p>
 
 <div>
+  <div class="btn">📝 文字内容区（公开）</div>
+</div>
+
+<button onclick="login()" class="btn">🔐 管理员入口</button>
+
+<div id="adminPanel">
+  <h2>管理员控制台</h2>
   <div class="btn">📷 上传图片</div>
   <div class="btn">🎥 上传视频</div>
-  <div class="btn">📝 发布文字</div>
 </div>
 
 </body>
