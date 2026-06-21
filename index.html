@@ -7,51 +7,25 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{background:#06192f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.5;overflow-x:hidden}
-
-/* 动态网格背景 */
-body::before{content:"";position:fixed;left:0;top:0;width:100%;height:100%;
-background-image:linear-gradient(rgba(0,180,255,.08) 1px,transparent 1px),
-linear-gradient(90deg,rgba(0,180,255,.08) 1px,transparent 1px);
-background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
+body::before{content:"";position:fixed;left:0;top:0;width:100%;height:100%;background-image:linear-gradient(rgba(0,180,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,180,255,.08) 1px,transparent 1px);background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 @keyframes grid{from{transform:translateY(0)}to{transform:translateY(40px)}}
-
-/* 扫描线 */
 .scan{position:fixed;width:100%;height:120px;background:linear-gradient(to bottom,transparent,rgba(0,255,255,.18),transparent);animation:scan 5s linear infinite;z-index:-1;pointer-events:none}
 @keyframes scan{0%{top:-120px}100%{top:100%}}
-
 .container{max-width:760px;width:95%;margin:auto;padding:0 0 20px}
-
-/* 头部 - 取消黑色背景 */
 .header{padding:18px 12px 14px;text-align:center;position:sticky;top:0;z-index:100;background:transparent}
-
-/* 主题动态脉冲 - 加快60% */
 .title{color:#ff0000;font-size:26px;font-weight:bold;letter-spacing:2px;animation:pulse 1.5s ease-in-out infinite}
 @keyframes pulse{0%,100%{transform:scale(1);text-shadow:0 0 10px rgba(255,0,0,.5)}50%{transform:scale(1.08);text-shadow:0 0 20px rgba(255,0,0,.8),0 0 40px rgba(255,0,0,.3)}}
-
-/* 副标题改为白色 */
 .sub{color:#ffffff;font-size:13px;margin-top:6px;line-height:1.8;text-align:center;text-shadow:0 0 5px rgba(255,255,255,.3)}
-
-/* 期数卡片 */
-.block{margin:12px 10px;background:#102d4d;border:1px solid #1fa8ff;border-radius:8px;padding:16px;position:relative}
-
-/* 期数标题栏 */
+.block{margin:12px 10px;background:#102d4d;border:1px solid #1fa8ff;border-radius:8px;padding:16px}
 .period-header{font-size:15px;font-weight:bold;color:#00d5ff;margin-bottom:10px;padding-bottom:8px;border-bottom:1px dashed rgba(0,213,255,.3);text-align:center;line-height:1.5}
-
-/* 内容行 */
 .row{margin:6px 0;line-height:1.8;color:#d0d8e8}
-
-/* 分隔线 - 缩小间距 */
 .separator{margin:6px 0;border:none;border-top:1px dashed rgba(0,213,255,.25)}
-
-/* 主码框框 */
 .main-code-box{margin-top:12px;background:rgba(0,213,255,.08);border:1px solid #00d5ff;border-radius:8px;padding:10px 12px}
 .main-code-label{color:#00d5ff;font-weight:bold;font-size:14px;margin-bottom:4px}
 .main-code-nums{color:#ffffff;font-size:14px;line-height:1.8;word-break:break-all}
-
 .nav{display:flex;justify-content:center;gap:10px;margin:14px 10px;flex-wrap:wrap}
 .nav-btn{flex:1;max-width:180px;padding:10px 8px;background:#ff0000;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:bold;text-align:center;cursor:pointer;appearance:none;-webkit-appearance:none}
 .nav-btn:active{opacity:.7}
-
 .notice{margin:12px 10px;background:#0b2745;border-left:5px solid #00d5ff;padding:10px 12px;border-radius:8px;font-size:13px;color:#7ec8e3}
 .footer{text-align:center;margin-top:16px;color:#9ec9df;font-size:14px}
 </style>
@@ -65,13 +39,13 @@ background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 <div class="sub">自动脚本每期采集<br>统计全网10万人二次再统计<br>蝙蝠群ID:15835326</div>
 </div>
 
-<!-- 172期 -->
+<!-- 172期（最新） -->
 <div id="p172">
 <div class="block">
 <div class="period-header">172期：主0次-防1次-2次可防可杀</div>
 
 <div class="row">〖0次〗:03,05,06,07,08,12,16,20,22,27</div>
-<div class="row">　　　　29,31,34,37,39,40,42,44,46,48</div>
+<div class="row">　　　　31,34,37,39,40,42,44,46,48</div>
 
 <div class="row">〖1次〗:15,25,28,30,38,41</div>
 <div class="row">〖2次〗:24,29,36</div>
@@ -87,10 +61,10 @@ background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 
 <div class="main-code-box">
 <div class="main-code-label">主号：</div>
-<div class="main-code-nums">03,05,06,07,08,12,16,20,22,27<br>29,31,34,37,39,40,42,44,46,48</div>
+<div class="main-code-nums">03,05,06,07,08,12,16,20,22,27<br>31,34,37,39,40,42,44,46,48</div>
 </div>
 </div>
-<div class="nav"><button class="nav-btn" onclick="show171()">⬅️ 171期</button></div>
+<div class="nav"><button class="nav-btn" onclick="show171()">➡️ 171期</button></div>
 </div>
 
 <!-- 171期 -->
@@ -118,8 +92,8 @@ background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 </div>
 </div>
 <div class="nav">
-<button class="nav-btn" onclick="show172()">172期 ➡️</button>
-<button class="nav-btn" onclick="show170()">⬅️ 170期</button>
+<button class="nav-btn" onclick="show172()">⬅️ 172期</button>
+<button class="nav-btn" onclick="show170()">➡️ 170期</button>
 </div>
 </div>
 
@@ -131,7 +105,9 @@ background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 <div class="row">〖0次〗:08,11,13,14,22,23,26,30,33,35</div>
 <div class="row">　　　　38,39,44,45,47</div>
 
-<div class="row">〖1次〗:02,03,06,07,15,16,19,24,27,37,40,41</div>
+<div class="row">〖1次〗:02,03,06,07,15,16,19,24,27,37</div>
+<div class="row">　　　　40,41</div>
+
 <div class="row">〖2次〗:10,21,42</div>
 
 <hr class="separator">
@@ -149,8 +125,8 @@ background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 </div>
 </div>
 <div class="nav">
-<button class="nav-btn" onclick="show171()">171期 ➡️</button>
-<button class="nav-btn" onclick="show169()">⬅️ 169期</button>
+<button class="nav-btn" onclick="show171()">⬅️ 171期</button>
+<button class="nav-btn" onclick="show169()">➡️ 169期</button>
 </div>
 </div>
 
@@ -178,8 +154,8 @@ background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 </div>
 </div>
 <div class="nav">
-<button class="nav-btn" onclick="show170()">170期 ➡️</button>
-<button class="nav-btn" onclick="show168()">⬅️ 168期</button>
+<button class="nav-btn" onclick="show170()">⬅️ 170期</button>
+<button class="nav-btn" onclick="show168()">➡️ 168期</button>
 </div>
 </div>
 
@@ -205,14 +181,13 @@ background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 <div class="main-code-nums">03,05,06,07,09,11,15,16,18,26<br>29,30,38,39,41,46,47</div>
 </div>
 </div>
-<div class="nav"><button class="nav-btn" onclick="show169()">169期 ➡️</button></div>
+<div class="nav"><button class="nav-btn" onclick="show169()">⬅️ 169期</button></div>
 </div>
 
 <div class="notice">📢 公告：本站数据持续更新中</div>
 <div class="footer">© 2026 新澳特曼数据统计论坛<br>DATA ANALYSIS SYSTEM ONLINE</div>
 
-</div><!-- end container -->
-
+</div>
 <script>
 function show168(){hideAll();p168.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
 function show169(){hideAll();p169.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
