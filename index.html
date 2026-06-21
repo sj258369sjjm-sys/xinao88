@@ -6,38 +6,47 @@
 <title>新澳特曼数据统计论坛</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{background:#06192f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden}
+body{background:#06192f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.5;overflow-x:hidden}
 
-/* 原版动态网格背景 */
+/* 动态网格背景 */
 body::before{content:"";position:fixed;left:0;top:0;width:100%;height:100%;
 background-image:linear-gradient(rgba(0,180,255,.08) 1px,transparent 1px),
 linear-gradient(90deg,rgba(0,180,255,.08) 1px,transparent 1px);
 background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 @keyframes grid{from{transform:translateY(0)}to{transform:translateY(40px)}}
 
-/* 原版扫描线 */
+/* 扫描线 */
 .scan{position:fixed;width:100%;height:120px;background:linear-gradient(to bottom,transparent,rgba(0,255,255,.18),transparent);animation:scan 5s linear infinite;z-index:-1;pointer-events:none}
 @keyframes scan{0%{top:-120px}100%{top:100%}}
 
 .container{max-width:760px;width:95%;margin:auto;padding:0 0 20px}
 
-/* 头部 */
-.header{background:#000;padding:14px 12px 12px;text-align:center;border-bottom:2px solid #00ffff;position:sticky;top:0;z-index:100}
+/* 头部 - 取消黑色背景 */
+.header{padding:18px 12px 14px;text-align:center;position:sticky;top:0;z-index:100;background:transparent}
 
-/* 主题动态脉冲 */
-.title{color:#ff0000;font-size:24px;font-weight:bold;text-align:center;animation:pulse 2.5s infinite}
-@keyframes pulse{50%{transform:scale(1.05)}}
+/* 主题动态脉冲 - 加快60% */
+.title{color:#ff0000;font-size:26px;font-weight:bold;letter-spacing:2px;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);text-shadow:0 0 10px rgba(255,0,0,.5)}50%{transform:scale(1.08);text-shadow:0 0 20px rgba(255,0,0,.8),0 0 40px rgba(255,0,0,.3)}}
 
-.sub{color:#00ffff;font-size:13px;margin-top:6px;line-height:1.8;text-align:center}
+/* 副标题改为白色 */
+.sub{color:#ffffff;font-size:13px;margin-top:6px;line-height:1.8;text-align:center;text-shadow:0 0 5px rgba(255,255,255,.3)}
 
-/* 期数卡片 - 原版风格 */
-.block{background:#102d4d;border:1px solid #1fa8ff;border-radius:8px;padding:18px;margin:12px 10px}
+/* 期数卡片 */
+.block{margin:12px 10px;background:#102d4d;border:1px solid #1fa8ff;border-radius:8px;padding:16px;position:relative}
 
 /* 期数标题栏 */
-.period-header{font-size:16px;font-weight:bold;color:#00d5ff;margin-bottom:12px;padding-bottom:8px;border-bottom:1px dashed rgba(0,213,255,.3);text-align:center;line-height:1.5}
+.period-header{font-size:15px;font-weight:bold;color:#00d5ff;margin-bottom:10px;padding-bottom:8px;border-bottom:1px dashed rgba(0,213,255,.3);text-align:center;line-height:1.5}
 
-/* 内容区 - 原版风格 */
-.post{background:#183b62;border-left:4px solid #00d5ff;border-radius:6px;padding:14px;white-space:pre-wrap;word-break:break-all;line-height:1.9;color:#d0d8e8;font-size:14px}
+/* 内容行 */
+.row{margin:6px 0;line-height:1.8;color:#d0d8e8}
+
+/* 分隔线 - 缩小间距 */
+.separator{margin:6px 0;border:none;border-top:1px dashed rgba(0,213,255,.25)}
+
+/* 主码框框 */
+.main-code-box{margin-top:12px;background:rgba(0,213,255,.08);border:1px solid #00d5ff;border-radius:8px;padding:10px 12px}
+.main-code-label{color:#00d5ff;font-weight:bold;font-size:14px;margin-bottom:4px}
+.main-code-nums{color:#ffffff;font-size:14px;line-height:1.8;word-break:break-all}
 
 .nav{display:flex;justify-content:center;gap:10px;margin:14px 10px;flex-wrap:wrap}
 .nav-btn{flex:1;max-width:180px;padding:10px 8px;background:#ff0000;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:bold;text-align:center;cursor:pointer;appearance:none;-webkit-appearance:none}
@@ -60,19 +69,26 @@ background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 <div id="p172">
 <div class="block">
 <div class="period-header">172期：主0次-防1次-2次可防可杀</div>
-<div class="post">〖0次〗:03,05,06,07,08,12,16,20,22,27,31,34,37,39,40,42,44,46,48
-〖1次〗:15,25,28,30,38,41
-〖2次〗:24,29,36
 
-------------------------
-〖3次〗:33,35,43,49 - 杀死
-〖4次〗:01,09,14,19 - 杀死
-〖5次〗:18,21,26,45 - 杀死
-〖6次〗:10,11,32 - 杀死
-〖7次〗:04,13,17,47 - 杀死
-〖8次〗:02,23 - 杀死
+<div class="row">〖0次〗:03,05,06,07,08,12,16,20,22,27</div>
+<div class="row">　　　　29,31,34,37,39,40,42,44,46,48</div>
 
-主号：03,05,06,07,08,12,16,20,22,27,31,34,37,39,40,42,44,46,48</div>
+<div class="row">〖1次〗:15,25,28,30,38,41</div>
+<div class="row">〖2次〗:24,29,36</div>
+
+<hr class="separator">
+
+<div class="row">〖3次〗:33,35,43,49 - 杀死</div>
+<div class="row">〖4次〗:01,09,14,19 - 杀死</div>
+<div class="row">〖5次〗:18,21,26,45 - 杀死</div>
+<div class="row">〖6次〗:10,11,32 - 杀死</div>
+<div class="row">〖7次〗:04,13,17,47 - 杀死</div>
+<div class="row">〖8次〗:02,23 - 杀死</div>
+
+<div class="main-code-box">
+<div class="main-code-label">主号：</div>
+<div class="main-code-nums">03,05,06,07,08,12,16,20,22,27<br>29,31,34,37,39,40,42,44,46,48</div>
+</div>
 </div>
 <div class="nav"><button class="nav-btn" onclick="show171()">⬅️ 171期</button></div>
 </div>
@@ -81,18 +97,25 @@ background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 <div id="p171" style="display:none">
 <div class="block">
 <div class="period-header">171期：主0次-防1次-2次可防可杀</div>
-<div class="post">〖0次〗:03,04,05,07,11,15,16,22,24,25,26,28,31,33,34,37,38,40,44,46
-〖1次〗:06,08,09,19,20,23,30,39
-〖2次〗:02,10,14,49
 
-------------------------
-〖3次〗:01,36,48 - 杀死
-〖4次〗:13,27,29,32,41 - 杀死
-〖5次〗:12,45,47 - 杀死
-〖6次〗:18,21,35 - 杀死
-〖7次〗:17,42,43 - 杀死
+<div class="row">〖0次〗:03,04,05,07,11,15,16,22,24,25</div>
+<div class="row">　　　　26,28,31,33,34,37,38,40,44,46</div>
 
-主号：03,04,05,07,11,15,16,22,24,25,26,28,31,33,34,37,38,40,44,46</div>
+<div class="row">〖1次〗:06,08,09,19,20,23,30,39</div>
+<div class="row">〖2次〗:02,10,14,49</div>
+
+<hr class="separator">
+
+<div class="row">〖3次〗:01,36,48 - 杀死</div>
+<div class="row">〖4次〗:13,27,29,32,41 - 杀死</div>
+<div class="row">〖5次〗:12,45,47 - 杀死</div>
+<div class="row">〖6次〗:18,21,35 - 杀死</div>
+<div class="row">〖7次〗:17,42,43 - 杀死</div>
+
+<div class="main-code-box">
+<div class="main-code-label">主号：</div>
+<div class="main-code-nums">03,04,05,07,11,15,16,22,24,25<br>26,28,31,33,34,37,38,40,44,46</div>
+</div>
 </div>
 <div class="nav">
 <button class="nav-btn" onclick="show172()">172期 ➡️</button>
@@ -104,19 +127,26 @@ background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 <div id="p170" style="display:none">
 <div class="block">
 <div class="period-header">170期：主0次-防1次-2次可防可杀</div>
-<div class="post">〖0次〗:08,11,13,14,22,23,26,30,33,35,38,39,44,45,47
-〖1次〗:02,03,06,07,15,16,19,24,27,37,40,41
-〖2次〗:10,21,42
 
-------------------------
-〖3次〗:01,25,43 - 杀死
-〖4次〗:29,34,48,49 - 杀死
-〖5次〗:09,17,46 - 杀死
-〖6次〗:12,18,31 - 杀死
-〖7次〗:20,28,32,36 - 杀死
-〖8次〗:04,05 - 杀死
+<div class="row">〖0次〗:08,11,13,14,22,23,26,30,33,35</div>
+<div class="row">　　　　38,39,44,45,47</div>
 
-主号：08,11,13,14,22,23,26,30,33,35,38,39,44,45,47</div>
+<div class="row">〖1次〗:02,03,06,07,15,16,19,24,27,37,40,41</div>
+<div class="row">〖2次〗:10,21,42</div>
+
+<hr class="separator">
+
+<div class="row">〖3次〗:01,25,43 - 杀死</div>
+<div class="row">〖4次〗:29,34,48,49 - 杀死</div>
+<div class="row">〖5次〗:09,17,46 - 杀死</div>
+<div class="row">〖6次〗:12,18,31 - 杀死</div>
+<div class="row">〖7次〗:20,28,32,36 - 杀死</div>
+<div class="row">〖8次〗:04,05 - 杀死</div>
+
+<div class="main-code-box">
+<div class="main-code-label">主号：</div>
+<div class="main-code-nums">08,11,13,14,22,23,26,30,33,35<br>38,39,44,45,47</div>
+</div>
 </div>
 <div class="nav">
 <button class="nav-btn" onclick="show171()">171期 ➡️</button>
@@ -128,17 +158,24 @@ background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 <div id="p169" style="display:none">
 <div class="block">
 <div class="period-header">169期：主0次-防1次-2次可防可杀</div>
-<div class="post">〖0次〗:01,03,06,08,09,11,12,14,15,22,24,26,36,37,45,46,49
-〖1次〗:02,04,21,27,33,41,44,47
-〖2次〗:07,19,28,29,38,39,40,43
 
-------------------------
-〖3次〗:10,23,30,32 - 杀死
-〖4次〗:05,13,16,18,42 - 杀死
-〖5次〗:20,25,31,35 - 杀死
-〖6次〗:17,34,48 - 杀死
+<div class="row">〖0次〗:01,03,06,08,09,11,12,14,15,22</div>
+<div class="row">　　　　24,26,36,37,45,46,49</div>
 
-主号：01,03,06,08,09,11,12,14,15,22,24,26,36,37,45,46,49</div>
+<div class="row">〖1次〗:02,04,21,27,33,41,44,47</div>
+<div class="row">〖2次〗:07,19,28,29,38,39,40,43</div>
+
+<hr class="separator">
+
+<div class="row">〖3次〗:10,23,30,32 - 杀死</div>
+<div class="row">〖4次〗:05,13,16,18,42 - 杀死</div>
+<div class="row">〖5次〗:20,25,31,35 - 杀死</div>
+<div class="row">〖6次〗:17,34,48 - 杀死</div>
+
+<div class="main-code-box">
+<div class="main-code-label">主号：</div>
+<div class="main-code-nums">01,03,06,08,09,11,12,14,15,22<br>24,26,36,37,45,46,49</div>
+</div>
 </div>
 <div class="nav">
 <button class="nav-btn" onclick="show170()">170期 ➡️</button>
@@ -150,16 +187,23 @@ background-size:40px 40px;animation:grid 10s linear infinite;z-index:-2}
 <div id="p168" style="display:none">
 <div class="block">
 <div class="period-header">168期：主0次-防1次-2次可防可杀</div>
-<div class="post">〖0次〗:03,05,06,07,09,11,15,16,18,26,29,30,38,39,41,46,47
-〖1次〗:01,04,10,13,19,20,21,28,40,49
 
----------------------------
-〖2次〗:02,08,12,14,22,24,25,32,33,35,36,37 - 杀
-〖3次〗:27,31,43,44,45,48 - 杀
-〖4次〗:23,34 - 杀
-〖5次〗:17,42 - 杀
+<div class="row">〖0次〗:03,05,06,07,09,11,15,16,18,26</div>
+<div class="row">　　　　29,30,38,39,41,46,47</div>
 
-主号：03,05,06,07,09,11,15,16,18,26,29,30,38,39,41,46,47</div>
+<div class="row">〖1次〗:01,04,10,13,19,20,21,28,40,49</div>
+
+<hr class="separator">
+
+<div class="row">〖2次〗:02,08,12,14,22,24,25,32,33,35,36,37 - 杀</div>
+<div class="row">〖3次〗:27,31,43,44,45,48 - 杀</div>
+<div class="row">〖4次〗:23,34 - 杀</div>
+<div class="row">〖5次〗:17,42 - 杀</div>
+
+<div class="main-code-box">
+<div class="main-code-label">主号：</div>
+<div class="main-code-nums">03,05,06,07,09,11,15,16,18,26<br>29,30,38,39,41,46,47</div>
+</div>
 </div>
 <div class="nav"><button class="nav-btn" onclick="show169()">169期 ➡️</button></div>
 </div>
