@@ -39,8 +39,35 @@ body::before{content:"";position:fixed;left:0;top:0;width:100%;height:100%;backg
 <div class="sub">自动脚本每期采集<br>统计全网10万人二次再统计<br>蝙蝠群ID:15835326</div>
 </div>
 
-<!-- 173期（最新） -->
-<div id="p173">
+<!-- 174期（最新） -->
+<div id="p174">
+<div class="block">
+<div class="period-header">174期：主0次-防1次-2次可防可杀</div>
+
+<div class="row">〖0次〗:03,08,13,15,16,18,19,24,26</div>
+<div class="row">　　　　30,31,33,36,37,38,39,42,44,45</div>
+
+<div class="row">〖1次〗:02,05,07,12,28,32,46</div>
+<div class="row">〖2次〗:09,10,11,21,26,34,40</div>
+
+<hr class="separator">
+
+<div class="row">〖3次〗:01,06,17,22,29,41,49 - 杀死</div>
+<div class="row">〖4次〗:04,20,43,48 - 杀死</div>
+<div class="row">〖5次〗:14,23 - 杀死</div>
+<div class="row">〖6次〗:27,47 - 杀死</div>
+<div class="row">〖7次〗:25,35 - 杀死</div>
+
+<div class="main-code-box">
+<div class="main-code-label">主号：</div>
+<div class="main-code-nums">03,08,13,15,16,18,19,24,26<br>30,31,33,36,37,38,39,42,44,45</div>
+</div>
+</div>
+<div class="nav"><button class="nav-btn" onclick="show173()">➡️ 173期</button></div>
+</div>
+
+<!-- 173期 -->
+<div id="p173" style="display:none">
 <div class="block">
 <div class="period-header">173期：主0次-防1次-2次可防可杀</div>
 
@@ -64,7 +91,10 @@ body::before{content:"";position:fixed;left:0;top:0;width:100%;height:100%;backg
 <div class="main-code-nums">02,03,06,07,08,18,20,24,27<br>28,31,38,40,42,46,48</div>
 </div>
 </div>
-<div class="nav"><button class="nav-btn" onclick="show172()">➡️ 172期</button></div>
+<div class="nav">
+<button class="nav-btn" onclick="show174()">⬅️ 174期</button>
+<button class="nav-btn" onclick="show172()">➡️ 172期</button>
+</div>
 </div>
 
 <!-- 172期 -->
@@ -227,7 +257,8 @@ function show170(){hideAll();p170.style.display='block';window.scrollTo({top:0,b
 function show171(){hideAll();p171.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
 function show172(){hideAll();p172.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
 function show173(){hideAll();p173.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
-function hideAll(){p168.style.display='none';p169.style.display='none';p170.style.display='none';p171.style.display='none';p172.style.display='none';p173.style.display='none';}
+function show174(){hideAll();p174.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
+function hideAll(){p168.style.display='none';p169.style.display='none';p170.style.display='none';p171.style.display='none';p172.style.display='none';p173.style.display='none';p174.style.display='none';}
 </script>
 </body>
 </html>
