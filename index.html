@@ -39,8 +39,35 @@ body::before{content:"";position:fixed;left:0;top:0;width:100%;height:100%;backg
 <div class="sub">自动脚本每期采集<br>统计全网10万人二次再统计<br>蝙蝠群ID:15835326</div>
 </div>
 
-<!-- 175期（最新） -->
-<div id="p175">
+<!-- 176期（最新） -->
+<div id="p176">
+<div class="block">
+<div class="period-header">176期：主0次-防1次-2次可防可杀</div>
+
+<div class="row">〖0次〗:07,08,13,15,16,19,21,25,30,39,40</div>
+
+<div class="row">〖1次〗:05,06,26,28,29,32,34,41</div>
+<div class="row">〖2次〗:01,03,22,27,37,45,48,49</div>
+
+<hr class="separator">
+
+<div class="row">〖3次〗:04,24,33,36 - 杀</div>
+<div class="row">〖4次〗:14,17,35,44,47 - 杀死</div>
+<div class="row">〖5次〗:20,31,23 - 杀死</div>
+<div class="row">〖6次〗:02,18,43 - 杀死</div>
+<div class="row">〖7次〗:10,12,38,42 - 杀死</div>
+<div class="row">〖8次〗:09,11,46 - 杀死</div>
+
+<div class="main-code-box">
+<div class="main-code-label">主号：</div>
+<div class="main-code-nums">07,08,13,15,16,19,21,25,30,39,40</div>
+</div>
+</div>
+<div class="nav"><button class="nav-btn" onclick="show175()">➡️ 175期</button></div>
+</div>
+
+<!-- 175期 -->
+<div id="p175" style="display:none">
 <div class="block">
 <div class="period-header">175期：主0次-防1次-2次可防可杀</div>
 
@@ -64,7 +91,10 @@ body::before{content:"";position:fixed;left:0;top:0;width:100%;height:100%;backg
 <div class="main-code-nums">06,13,14,15,16,19,26,27,28<br>34,37,39,40,42,45</div>
 </div>
 </div>
-<div class="nav"><button class="nav-btn" onclick="show174()">➡️ 174期</button></div>
+<div class="nav">
+<button class="nav-btn" onclick="show176()">⬅️ 176期</button>
+<button class="nav-btn" onclick="show174()">➡️ 174期</button>
+</div>
 </div>
 
 <!-- 174期 -->
@@ -290,7 +320,8 @@ function show172(){hideAll();p172.style.display='block';window.scrollTo({top:0,b
 function show173(){hideAll();p173.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
 function show174(){hideAll();p174.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
 function show175(){hideAll();p175.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
-function hideAll(){p168.style.display='none';p169.style.display='none';p170.style.display='none';p171.style.display='none';p172.style.display='none';p173.style.display='none';p174.style.display='none';p175.style.display='none';}
+function show176(){hideAll();p176.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
+function hideAll(){p168.style.display='none';p169.style.display='none';p170.style.display='none';p171.style.display='none';p172.style.display='none';p173.style.display='none';p174.style.display='none';p175.style.display='none';p176.style.display='none';}
 </script>
 </body>
 </html>
