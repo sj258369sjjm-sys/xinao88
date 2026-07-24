@@ -3,274 +3,423 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>阿凡提数据/脚本</title>
+    <title>阿凡提数据/脚本 - 大数据引流引擎</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0f111a;
-            --card-bg: #1a1d2e;
-            --primary: #6c63ff;
+            --bg-dark: #070b14;
+            --card-bg: rgba(16, 22, 36, 0.8);
+            --primary: #00f0ff;
+            --secondary: #6c63ff;
             --text-main: #e4e4e7;
-            --text-sub: #9ca3af;
+            --text-sub: #8a8f98;
+            --border-glow: rgba(0, 240, 255, 0.3);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
-        header { text-align: center; padding: 60px 20px; background: linear-gradient(135deg, #1a1d2e 0%, #0f111a 100%); }
-        header h1 { font-size: 2.2rem; margin-bottom: 10px; }
-        header p { color: var(--text-sub); font-size: 1rem; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
+            font-family: 'Noto Sans SC', sans-serif;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            overflow-x: hidden;
+        }
 
-        .container { max-width: 1200px; margin: auto; padding: 40px 20px; }
+        .container { max-width: 1200px; margin: auto; padding: 0 20px; }
 
-        .grid {
+        /* 头部导航 */
+        header {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-glow);
+        }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Orbitron', monospace; font-size: 1.5rem; color: var(--primary); font-weight: 700; }
+        .contact-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .contact-btn:hover { background: var(--primary); color: var(--bg-dark); }
+
+        /* 主内容区 */
+        main { padding-top: 100px; }
+
+        /* 板块通用 */
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            text-align: center;
+            margin: 80px 0 40px;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            margin: 10px auto;
+        }
+
+        /* 板块一：主题+简介（数据仪表盘） */
+        .hero {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            min-height: 70vh;
+        }
+        .hero-text h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            line-height: 1.2;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        .hero-text p { color: var(--text-sub); font-size: 1.1rem; line-height: 1.8; }
+        
+        .dashboard {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .dashboard::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: scan 3s linear infinite;
+        }
+        @keyframes scan { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        
+        .chart-placeholder {
+            height: 150px;
+            background: linear-gradient(180deg, rgba(0,240,255,0.1) 0%, transparent 100%);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .chart-placeholder::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .stat-item { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; border-left: 3px solid var(--primary); }
+        .stat-value { font-family: 'Orbitron'; font-size: 1.2rem; color: var(--primary); }
+        .stat-label { font-size: 0.8rem; color: var(--text-sub); }
+
+        /* 板块二：动图+简介 */
+        .showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        .media-box img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid rgba(0,240,255,0.2);
+        }
+        .intro-text h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary); }
+        .intro-text ul { list-style: none; }
+        .intro-text li { padding: 10px 0; border-bottom: 1px dashed rgba(255,255,255,0.1); position: relative; padding-left: 20px; }
+        .intro-text li::before { content: '▶'; position: absolute; left: 0; color: var(--primary); font-size: 0.8rem; }
+
+        /* 板块三：纯文字介绍 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 24px;
         }
-
-        .card {
+        .feature-card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .card-top {
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-        }
-
-        .qrcode {
-            width: 130px;
-            height: 130px;
-            background: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px;
-            flex-shrink: 0;
+            padding: 25px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .feature-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .feature-icon { font-size: 2rem; margin-bottom: 15px; }
+        .feature-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-main); }
+        .feature-card p { font-size: 0.9rem; color: var(--text-sub); line-height: 1.6; }
+
+        /* 板块四：动图+图片+简介 */
+        .case-study {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .case-header { display: flex; align-items: center; margin-bottom: 20px; }
+        .case-tag {
+            background: var(--primary);
+            color: var(--bg-dark);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .case-title { font-size: 1.3rem; }
+        .case-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        .case-media img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid rgba(0,240,255,0.2);
+        }
+        .case-desc { color: var(--text-sub); line-height: 1.8; }
+        .case-desc strong { color: var(--primary); }
+
+        /* 占位符样式 */
+        .placeholder {
+            background: rgba(255,255,255,0.05);
+            border: 2px dashed rgba(0,240,255,0.3);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .qrcode img {
-            width: 120px;
-            height: 120px;
-            object-fit: contain;
-        }
-
-        .info h3 {
-            font-size: 1.1rem;
-            margin-bottom: 6px;
-        }
-
-        .desc {
-            font-size: 0.85rem;
+            min-height: 200px;
             color: var(--text-sub);
-            min-height: 72px;
-            margin-bottom: 12px;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 10px;
         }
 
-        /* 👇 功能标签改为大红色 */
-        .tags span {
-            display: inline-block;
-            background: rgba(220, 38, 38, 0.15);
-            color: #ff2a2a;
-            font-size: 0.85rem;
-            font-weight: 700;
-            padding: 5px 10px;
-            border-radius: 6px;
-            margin-right: 6px;
-            border: 1px solid rgba(220, 38, 38, 0.3);
-        }
-
+        /* 页脚 */
         footer {
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
+            margin-top: 80px;
+            border-top: 1px solid var(--border-glow);
             color: var(--text-sub);
-            font-size: 0.85rem;
         }
 
-        @media (max-width: 480px) {
-            .card-top { flex-direction: column; align-items: center; text-align: center; }
-            .desc { min-height: auto; }
+        /* 响应式 */
+        @media (max-width: 900px) {
+            .hero, .showcase, .case-content { grid-template-columns: 1fr; }
+            .hero-text h1 { font-size: 2.2rem; }
+            .section-title { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>🛠 全套引流脚本</h1>
-    <p>专业定制 · 稳定防封 · 持续更新</p>
+    <div class="container">
+        <div class="logo">阿凡提数据</div>
+        <button class="contact-btn" onclick="alert('客服微信：在此处填写微信号')">联系客服</button>
+    </div>
 </header>
 
-<div class="container">
-    <div class="grid">
+<main class="container">
+    
+    <!-- 板块一：主题 + 简介（数据仪表盘） -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>阿凡提数据<br>脚本引擎</h1>
+            <p>
+                基于PB级大数据训练的智能引流算法，毫秒级响应，精准触达目标客群。
+                采用分布式集群架构，支持百万级并发任务调度。内置AI风控对抗模型，
+                实现7x24小时无人值守稳定运行。拒绝低效人工，拥抱数据驱动增长。
+            </p>
+        </div>
+        <div class="dashboard">
+            <div class="chart-placeholder"></div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">18,427+</div>
+                    <div class="stat-label">活跃用户</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">99.8%</div>
+                    <div class="stat-label">系统稳定率</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">12.6%</div>
+                    <div class="stat-label">平均转化率</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">1.2亿+</div>
+                    <div class="stat-label">日处理数据</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!-- 脚本 1 -->
-        <div class="card">
-            <div class="card-top">
-                <div class="qrcode"><img src="qr-01.png" alt="二维码1"></div>
-                <div class="info">
-                    <h3>脚本一号</h3>
-                    <div class="desc">
-                        在此处填写脚本用途介绍，例如：自动刷图、智能挂机、自动回收装备、支持多开稳定运行。
-                    </div>
-                    <div class="tags">
-                        <span>自动战斗</span>
-                        <span>挂机</span>
-                    </div>
+    <!-- 板块二：动图 + 简介 -->
+    <section>
+        <h2 class="section-title">02 / 核心演示</h2>
+        <div class="showcase">
+            <div class="media-box">
+                <!-- 请上传 demo-01.gif -->
+                <img src="demo-01.gif" alt="脚本运行动图" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>请上传<br>demo-01.gif</div>'">
+            </div>
+            <div class="intro-text">
+                <h3>全流程自动化演示</h3>
+                <ul>
+                    <li><strong>智能识别：</strong>毫秒级图像识别技术，精准锁定目标元素。</li>
+                    <li><strong>逻辑编排：</strong>可视化流程编辑器，复杂业务逻辑一键配置。</li>
+                    <li><strong>异常自愈：</strong>遇到弹窗/断网自动重试，无需人工干预。</li>
+                    <li><strong>云端同步：</strong>多设备数据实时同步，随时随地掌控进度。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 板块三：纯文字介绍 -->
+    <section>
+        <h2 class="section-title">03 / 技术架构</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📡</div>
+                <h4>数据采集引擎</h4>
+                <p>分布式爬虫集群，支持动态渲染与反爬对抗，日均采集数据量超千万级，为决策提供数据支撑。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h4>智能触达引擎</h4>
+                <p>基于深度学习的用户画像分析，智能匹配最优触达时机与话术，大幅提升转化效率。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h4>转化分析引擎</h4>
+                <p>实时数据清洗与漏斗分析，自动生成ROI报表，让每一分投入都清晰可见。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h4>风控对抗引擎</h4>
+                <p>模拟真人操作轨迹，内置IP池轮换与行为伪装算法，有效规避平台风控机制。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h4>自动化调度引擎</h4>
+                <p>支持多线程并发与任务队列管理，资源占用低，可在低配设备上流畅运行。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h4>私有化部署方案</h4>
+                <p>支持本地化私有部署，数据不出内网，保障企业核心数据安全与隐私合规。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 板块四：动图 + 图片 + 简介 -->
+    <section>
+        <h2 class="section-title">04 / 实战案例</h2>
+        
+        <!-- 案例一 -->
+        <div class="case-study">
+            <div class="case-header">
+                <span class="case-tag">CASE 01</span>
+                <span class="case-title">电商爆款引流实战</span>
+            </div>
+            <div class="case-content">
+                <div class="case-media">
+                    <!-- 请上传 case1-demo.gif -->
+                    <img src="case1-demo.gif" alt="案例一动图" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>上传<br>case1-demo.gif</div>'">
+                </div>
+                <div class="case-media">
+                    <!-- 请上传 case1-result.png -->
+                    <img src="case1-result.png" alt="案例一结果" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>上传<br>case1-result.png</div>'">
+                </div>
+                <div class="case-desc">
+                    <p><strong>痛点：</strong>传统人工引流效率低，账号易被封禁，获客成本居高不下。</p>
+                    <p><strong>方案：</strong>部署阿凡提脚本引擎，配置智能筛选规则与拟人化操作逻辑。</p>
+                    <p><strong>成果：</strong>单账号日均安全触达300+精准用户，转化率提升<strong>240%</strong>，人力成本降低80%。</p>
                 </div>
             </div>
         </div>
 
-        <!-- 脚本 2 -->
-        <div class="card">
-            <div class="card-top">
-                <div class="qrcode"><img src="qr-02.png" alt="二维码2"></div>
-                <div class="info">
-                    <h3>脚本二号</h3>
-                    <div class="desc">
-                        在此处填写脚本用途介绍。
-                    </div>
-                    <div class="tags">
-                        <span>自动采集</span>
-                    </div>
+        <!-- 案例二 -->
+        <div class="case-study">
+            <div class="case-header">
+                <span class="case-tag">CASE 02</span>
+                <span class="case-title">私域流量池构建</span>
+            </div>
+            <div class="case-content">
+                <div class="case-media">
+                    <!-- 请上传 case2-demo.gif -->
+                    <img src="case2-demo.gif" alt="案例二动图" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>上传<br>case2-demo.gif</div>'">
+                </div>
+                <div class="case-media">
+                    <!-- 请上传 case2-result.png -->
+                    <img src="case2-result.png" alt="案例二结果" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>上传<br>case2-result.png</div>'">
+                </div>
+                <div class="case-desc">
+                    <p><strong>痛点：</strong>公域流量难以沉淀，用户流失严重，缺乏有效的留存手段。</p>
+                    <p><strong>方案：</strong>利用脚本实现跨平台自动化引流，将公域用户无缝导入企业微信私域池。</p>
+                    <p><strong>成果：</strong>30天内构建万级私域流量池，用户留存率提升至<strong>65%</strong>，复购率显著提高。</p>
                 </div>
             </div>
         </div>
 
-        <!-- 脚本 3 -->
-        <div class="card">
-            <div class="card-top">
-                <div class="qrcode"><img src="qr-03.png" alt="二维码3"></div>
-                <div class="info">
-                    <h3>脚本三号</h3>
-                    <div class="desc">
-                        在此处填写脚本用途介绍。
-                    </div>
-                    <div class="tags">
-                        <span>自动任务</span>
-                    </div>
+        <!-- 案例三 -->
+        <div class="case-study">
+            <div class="case-header">
+                <span class="case-tag">CASE 03</span>
+                <span class="case-title">竞品数据监控</span>
+            </div>
+            <div class="case-content">
+                <div class="case-media">
+                    <!-- 请上传 case3-demo.gif -->
+                    <img src="case3-demo.gif" alt="案例三动图" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>上传<br>case3-demo.gif</div>'">
+                </div>
+                <div class="case-media">
+                    <!-- 请上传 case3-result.png -->
+                    <img src="case3-result.png" alt="案例三结果" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>上传<br>case3-result.png</div>'">
+                </div>
+                <div class="case-desc">
+                    <p><strong>痛点：</strong>市场变化快，无法及时掌握竞品动态，决策滞后。</p>
+                    <p><strong>方案：</strong>部署7x24小时数据监控脚本，实时抓取竞品价格、活动及舆情数据。</p>
+                    <p><strong>成果：</strong>建立实时竞品数据库，市场响应速度提升<strong>300%</strong>，抢占市场先机。</p>
                 </div>
             </div>
         </div>
 
-        <!-- 脚本 4 -->
-        <div class="card">
-            <div class="card-top">
-                <div class="qrcode"><img src="qr-04.png" alt="二维码4"></div>
-                <div class="info">
-                    <h3>脚本四号</h3>
-                    <div class="desc">
-                        在此处填写脚本用途介绍。
-                    </div>
-                    <div class="tags">
-                        <span>副本速通</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </section>
 
-        <!-- 脚本 5 -->
-        <div class="card">
-            <div class="card-top">
-                <div class="qrcode"><img src="qr-05.png" alt="二维码5"></div>
-                <div class="info">
-                    <h3>脚本五号</h3>
-                    <div class="desc">
-                        在此处填写脚本用途介绍。
-                    </div>
-                    <div class="tags">
-                        <span>自动PK</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 脚本 6 -->
-        <div class="card">
-            <div class="card-top">
-                <div class="qrcode"><img src="qr-06.png" alt="二维码6"></div>
-                <div class="info">
-                    <h3>脚本六号</h3>
-                    <div class="desc">
-                        在此处填写脚本用途介绍。
-                    </div>
-                    <div class="tags">
-                        <span>自动挖矿</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 脚本 7 -->
-        <div class="card">
-            <div class="card-top">
-                <div class="qrcode"><img src="qr-07.png" alt="二维码7"></div>
-                <div class="info">
-                    <h3>脚本七号</h3>
-                    <div class="desc">
-                        在此处填写脚本用途介绍。
-                    </div>
-                    <div class="tags">
-                        <span>自动钓鱼</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 脚本 8 -->
-        <div class="card">
-            <div class="card-top">
-                <div class="qrcode"><img src="qr-08.png" alt="二维码8"></div>
-                <div class="info">
-                    <h3>脚本八号</h3>
-                    <div class="desc">
-                        在此处填写脚本用途介绍。
-                    </div>
-                    <div class="tags">
-                        <span>自动摆摊</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 脚本 9 -->
-        <div class="card">
-            <div class="card-top">
-                <div class="qrcode"><img src="qr-09.png" alt="二维码9"></div>
-                <div class="info">
-                    <h3>脚本九号</h3>
-                    <div class="desc">
-                        在此处填写脚本用途介绍。
-                    </div>
-                    <div class="tags">
-                        <span>自动答题</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 脚本 10 -->
-        <div class="card">
-            <div class="card-top">
-                <div class="qrcode"><img src="qr-10.png" alt="二维码10"></div>
-                <div class="info">
-                    <h3>脚本十号</h3>
-                    <div class="desc">
-                        在此处填写脚本用途介绍。
-                    </div>
-                    <div class="tags">
-                        <span>全能辅助</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
+</main>
 
 <footer>
-    © 2026 阿凡提数据/脚本 | 联系客服：在此处填写微信号
+    <p>© 2026 阿凡提数据/脚本 | 专业大数据引流解决方案</p>
+    <p style="margin-top: 10px;">客服微信：在此处填写微信号</p>
 </footer>
 
 </body>
