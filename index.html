@@ -1,426 +1,530 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>阿凡提数据/脚本 - 大数据引流引擎</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-dark: #070b14;
-            --card-bg: rgba(16, 22, 36, 0.8);
-            --primary: #00f0ff;
-            --secondary: #6c63ff;
-            --text-main: #e4e4e7;
-            --text-sub: #8a8f98;
-            --border-glow: rgba(0, 240, 255, 0.3);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿凡提数据/脚本 — 大数据引流引擎</title>
+<style>
+:root{
+  --bg:#05070f;
+  --bg2:#080b14;
+  --card:rgba(13,18,30,.85);
+  --line:rgba(0,229,255,.08);
+  --line-bright:rgba(0,229,255,.25);
+  --cyan:#00e5ff;
+  --blue:#3b82f6;
+  --violet:#8b5cf6;
+  --green:#10b981;
+  --red:#ef4444;
+  --amber:#f59e0b;
+  --text:#e2e8f0;
+  --muted:#64748b;
+  --mono:'SF Mono','Fira Code','Consolas',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{
+  background:var(--bg);color:var(--text);line-height:1.7;
+  font-family:'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,229,255,.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,229,255,.02) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 800px 600px at 15% 20%,rgba(0,229,255,.06),transparent),
+    radial-gradient(ellipse 600px 800px at 85% 60%,rgba(139,92,246,.05),transparent),
+    radial-gradient(ellipse 500px 500px at 50% 90%,rgba(59,130,246,.04),transparent);
+}
+main{position:relative;z-index:1}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background-color: var(--bg-dark); 
-            color: var(--text-main); 
-            font-family: 'Noto Sans SC', sans-serif;
-            background-image: 
-                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            overflow-x: hidden;
-        }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,7,15,.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;letter-spacing:.5px}
+.logo-icon{width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,var(--cyan),var(--blue));display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 0 12px rgba(0,229,255,.4)}
+.logo-text{background:linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:13px;color:var(--muted);transition:.3s;position:relative;font-family:var(--mono)}
+.nav-links a:hover,.nav-links a.active{color:var(--cyan)}
+.nav-links a.active::after{content:'';position:absolute;bottom:-22px;left:0;right:0;height:2px;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+.nav-cta{font-size:12px;padding:7px 16px;border:1px solid var(--line-bright);border-radius:6px;color:var(--cyan);background:rgba(0,229,255,.05);cursor:pointer;transition:.3s;font-family:var(--mono)}
+.nav-cta:hover{background:rgba(0,229,255,.12);box-shadow:0 0 16px rgba(0,229,255,.2)}
 
-        .container { max-width: 1200px; margin: auto; padding: 0 20px; }
+/* 通用 */
+section{padding:100px 0;position:relative}
+.sec-head{margin-bottom:48px}
+.sec-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--cyan);padding:4px 14px;border:1px solid var(--line-bright);border-radius:20px;background:rgba(0,229,255,.04);margin-bottom:16px}
+.sec-tag .dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan);animation:blink 2s infinite}
+.sec-title{font-size:36px;font-weight:900;line-height:1.2;margin-bottom:12px}
+.sec-title span{background:linear-gradient(90deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sec-desc{font-size:15px;color:var(--muted);max-width:680px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-        /* 头部导航 */
-        header {
-            position: fixed; top: 0; left: 0; right: 0;
-            background: rgba(7, 11, 20, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border-glow);
-        }
-        header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Orbitron', monospace; font-size: 1.5rem; color: var(--primary); font-weight: 700; }
-        .contact-btn {
-            background: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .contact-btn:hover { background: var(--primary); color: var(--bg-dark); }
+/* 板块一 */
+.intro{min-height:100vh;display:flex;align-items:center;padding-top:80px}
+.intro-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.intro-left .sec-title{font-size:52px}
+.intro-left p{font-size:16px;color:var(--muted);margin-bottom:18px;line-height:1.9;max-width:560px}
+.intro-left .hl{color:var(--cyan);font-weight:600}
+.intro-left .hl-red{color:var(--red);font-weight:700}
 
-        /* 主内容区 */
-        main { padding-top: 100px; }
+/* 终端 */
+.terminal{margin-top:32px;background:#080c16;border:1px solid var(--line);border-radius:10px;padding:20px 24px;font-family:var(--mono);font-size:13px;position:relative;overflow:hidden}
+.terminal::before{content:'● ● ●';position:absolute;top:10px;left:14px;font-size:8px;color:#334155;letter-spacing:3px}
+.terminal-body{margin-top:16px;line-height:2}
+.terminal .prompt{color:var(--green)}
+.terminal .cmd{color:var(--cyan)}
+.terminal .out{color:var(--muted)}
+.terminal .cursor{display:inline-block;width:7px;height:14px;background:var(--cyan);vertical-align:middle;animation:blink 1s infinite;margin-left:2px}
 
-        /* 板块通用 */
-        .section-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            text-align: center;
-            margin: 80px 0 40px;
-            position: relative;
-        }
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            margin: 10px auto;
-        }
+/* 面板 */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;position:relative;overflow:hidden;backdrop-filter:blur(10px)}
+.panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.panel-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;font-family:var(--mono);font-size:12px}
+.panel-title .label{color:var(--cyan);font-weight:600}
+.panel-title .live{display:flex;align-items:center;gap:6px;color:var(--green);font-size:11px}
+.panel-title .live::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite}
+.dp-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:13px}
+.dp-row:last-of-type{border-bottom:none}
+.dp-row .k{color:var(--muted)}
+.dp-row .v{font-weight:700;color:#fff}
+.dp-row .v.up{color:var(--green)}
+.dp-row .v.warn{color:var(--amber)}
+.dp-row .v.danger{color:var(--red)}
+.mini-chart{margin-top:20px;height:60px;position:relative}
+.mini-chart svg{width:100%;height:100%}
 
-        /* 板块一：主题+简介（数据仪表盘） */
-        .hero {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-            min-height: 70vh;
-        }
-        .hero-text h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: 3rem;
-            line-height: 1.2;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-        .hero-text p { color: var(--text-sub); font-size: 1.1rem; line-height: 1.8; }
-        
-        .dashboard {
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 12px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        .dashboard::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            animation: scan 3s linear infinite;
-        }
-        @keyframes scan { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        
-        .chart-placeholder {
-            height: 150px;
-            background: linear-gradient(180deg, rgba(0,240,255,0.1) 0%, transparent 100%);
-            border-radius: 8px;
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        .chart-placeholder::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 2px;
-            background: var(--primary);
-            box-shadow: 0 0 10px var(--primary);
-            animation: pulse 2s ease-in-out infinite;
-        }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+/* 联系方式 */
+.contact-area{margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
+.contact-area h4{font-size:13px;color:var(--cyan);margin-bottom:14px;font-family:var(--mono);letter-spacing:1px}
+.cc-row{display:flex;align-items:center;gap:12px;padding:10px 0;font-size:14px}
+.cc-row .ic{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.cc-row .ic-c{background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.15)}
+.cc-row .ic-g{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.15)}
+.cc-row .ic-v{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.15)}
+.cc-row .ic-r{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.15)}
+.cc-row .lbl{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.cc-row .val{font-weight:700;color:#fff;font-size:14px}
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        .stat-item { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; border-left: 3px solid var(--primary); }
-        .stat-value { font-family: 'Orbitron'; font-size: 1.2rem; color: var(--primary); }
-        .stat-label { font-size: 0.8rem; color: var(--text-sub); }
+/* 板块二：图片区 */
+.gallery{background:var(--bg2)}
+.img-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.img-card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.4s;position:relative}
+.img-card:hover{transform:translateY(-4px);border-color:var(--line-bright);box-shadow:0 16px 48px rgba(0,0,0,.5),0 0 24px rgba(0,229,255,.08)}
+.img-card .corner{position:absolute;top:14px;left:14px;z-index:2;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:1px;color:var(--cyan);background:rgba(0,0,0,.7);padding:3px 10px;border-radius:4px;border:1px solid rgba(0,229,255,.2)}
+.img-card .scan{position:absolute;top:0;left:0;right:0;height:2px;z-index:3;background:linear-gradient(90deg,transparent,var(--cyan),transparent);animation:scanline 4s ease-in-out infinite;opacity:0;transition:opacity .3s}
+.img-card:hover .scan{opacity:1}
+@keyframes scanline{0%{top:0}100%{top:100%}}
+.img-box{width:100%;aspect-ratio:16/10;background:#06090f;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--line);position:relative}
+.img-box img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.img-card:hover .img-box img{transform:scale(1.03)}
+.img-box .ph{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-family:var(--mono)}
+.img-box .ph .ic{font-size:30px;opacity:.35}
+.img-info{padding:20px 22px}
+.img-info h4{font-size:15px;font-weight:700;margin-bottom:6px;color:#fff;display:flex;align-items:center;gap:8px}
+.img-info h4::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan)}
+.img-info p{font-size:13px;color:var(--muted);line-height:1.6}
 
-        /* 板块二：动图+简介 */
-        .showcase {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 16px;
-            padding: 30px;
-            margin-top: 40px;
-        }
-        .media-box img {
-            width: 100%;
-            border-radius: 8px;
-            border: 1px solid rgba(0,240,255,0.2);
-        }
-        .intro-text h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary); }
-        .intro-text ul { list-style: none; }
-        .intro-text li { padding: 10px 0; border-bottom: 1px dashed rgba(255,255,255,0.1); position: relative; padding-left: 20px; }
-        .intro-text li::before { content: '▶'; position: absolute; left: 0; color: var(--primary); font-size: 0.8rem; }
+/* 板块三：文字 */
+.text-list{display:flex;flex-direction:column}
+.text-item{display:grid;grid-template-columns:80px 1fr auto;gap:28px;padding:32px 0;border-bottom:1px solid var(--line);align-items:flex-start;transition:.3s}
+.text-item:last-child{border-bottom:none}
+.text-item:hover{background:rgba(0,229,255,.02);margin:0 -16px;padding:32px 16px;border-radius:8px}
+.text-num{font-family:var(--mono);font-size:32px;font-weight:900;line-height:1;background:linear-gradient(180deg,var(--cyan),transparent 90%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.text-body h4{font-size:17px;font-weight:700;margin-bottom:10px;color:#fff;display:flex;align-items:center;gap:10px}
+.text-body h4 .badge{font-size:10px;font-family:var(--mono);padding:2px 8px;border-radius:4px;background:rgba(0,229,255,.1);color:var(--cyan);border:1px solid rgba(0,229,255,.15);font-weight:400}
+.text-body p{font-size:14px;color:var(--muted);line-height:1.9}
+.text-body .em{color:var(--cyan);font-weight:600}
+.text-body .red{color:var(--red);font-weight:700}
+.text-body .green{color:var(--green);font-weight:600}
+.text-stat{text-align:right;font-family:var(--mono);white-space:nowrap}
+.text-stat .vs{font-size:22px;font-weight:900;color:var(--cyan)}
+.text-stat .ls{font-size:11px;color:var(--muted);margin-top:2px}
 
-        /* 板块三：纯文字介绍 */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-        }
-        .feature-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 25px;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-        .feature-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .feature-icon { font-size: 2rem; margin-bottom: 15px; }
-        .feature-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-main); }
-        .feature-card p { font-size: 0.9rem; color: var(--text-sub); line-height: 1.6; }
+/* FOOTER */
+footer{padding:60px 0 28px;border-top:1px solid var(--line);background:var(--bg2);position:relative}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:36px}
+.footer-col h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:14px;font-family:var(--mono);letter-spacing:1px}
+.footer-col p,.footer-col a{font-size:13px;color:var(--muted);line-height:2.2;display:block;transition:.3s}
+.footer-col a:hover{color:var(--cyan)}
+.footer-brand{font-size:20px;font-weight:900;background:linear-gradient(90deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+.footer-bottom{text-align:center;padding-top:24px;border-top:1px solid var(--line);font-size:12px;color:#334155;font-family:var(--mono)}
 
-        /* 板块四：动图+图片+简介 */
-        .case-study {
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-        .case-header { display: flex; align-items: center; margin-bottom: 20px; }
-        .case-tag {
-            background: var(--primary);
-            color: var(--bg-dark);
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-right: 15px;
-        }
-        .case-title { font-size: 1.3rem; }
-        .case-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-        }
-        .case-media img {
-            width: 100%;
-            border-radius: 8px;
-            border: 1px solid rgba(0,240,255,0.2);
-        }
-        .case-desc { color: var(--text-sub); line-height: 1.8; }
-        .case-desc strong { color: var(--primary); }
+/* 滚动条 */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#1e293b;border-radius:3px}
 
-        /* 占位符样式 */
-        .placeholder {
-            background: rgba(255,255,255,0.05);
-            border: 2px dashed rgba(0,240,255,0.3);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 200px;
-            color: var(--text-sub);
-            font-size: 0.9rem;
-            text-align: center;
-            padding: 10px;
-        }
+/* 响应式 */
+@media(max-width:960px){
+  .intro-grid{grid-template-columns:1fr;gap:40px}
+  .intro-left .sec-title{font-size:36px}
+  .img-grid{grid-template-columns:1fr}
+  .text-item{grid-template-columns:50px 1fr;gap:16px}
+  .text-stat{display:none}
+  .footer-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  section{padding:70px 0}
+  .sec-title{font-size:24px}
+  .container{padding:0 16px}
+  .terminal{font-size:11px;padding:16px}
+}
 
-        /* 页脚 */
-        footer {
-            text-align: center;
-            padding: 60px 20px;
-            margin-top: 80px;
-            border-top: 1px solid var(--border-glow);
-            color: var(--text-sub);
-        }
-
-        /* 响应式 */
-        @media (max-width: 900px) {
-            .hero, .showcase, .case-content { grid-template-columns: 1fr; }
-            .hero-text h1 { font-size: 2.2rem; }
-            .section-title { font-size: 1.5rem; }
-        }
-    </style>
+/* 入场动画 */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+</style>
 </head>
 <body>
 
-<header>
-    <div class="container">
-        <div class="logo">阿凡提数据</div>
-        <button class="contact-btn" onclick="alert('客服微信：在此处填写微信号')">联系客服</button>
+<nav>
+  <div class="container nav-inner">
+    <a class="logo" href="#">
+      <span class="logo-icon">⚡</span>
+      <span class="logo-text">阿凡提数据/脚本</span>
+    </a>
+    <div class="nav-links">
+      <a href="#s1" class="active">OVERVIEW</a>
+      <a href="#s2">GALLERY</a>
+      <a href="#s3">DETAILS</a>
     </div>
-</header>
+    <button class="nav-cta" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">[ 立即接入 ]</button>
+  </div>
+</nav>
 
-<main class="container">
-    
-    <!-- 板块一：主题 + 简介（数据仪表盘） -->
-    <section class="hero">
-        <div class="hero-text">
-            <h1>阿凡提数据<br>脚本引擎</h1>
-            <p>
-                基于PB级大数据训练的智能引流算法，毫秒级响应，精准触达目标客群。
-                采用分布式集群架构，支持百万级并发任务调度。内置AI风控对抗模型，
-                实现7x24小时无人值守稳定运行。拒绝低效人工，拥抱数据驱动增长。
-            </p>
-        </div>
-        <div class="dashboard">
-            <div class="chart-placeholder"></div>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-value">18,427+</div>
-                    <div class="stat-label">活跃用户</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">99.8%</div>
-                    <div class="stat-label">系统稳定率</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">12.6%</div>
-                    <div class="stat-label">平均转化率</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">1.2亿+</div>
-                    <div class="stat-label">日处理数据</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<main>
 
-    <!-- 板块二：动图 + 简介 -->
-    <section>
-        <h2 class="section-title">02 / 核心演示</h2>
-        <div class="showcase">
-            <div class="media-box">
-                <!-- 请上传 demo-01.gif -->
-                <img src="demo-01.gif" alt="脚本运行动图" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>请上传<br>demo-01.gif</div>'">
-            </div>
-            <div class="intro-text">
-                <h3>全流程自动化演示</h3>
-                <ul>
-                    <li><strong>智能识别：</strong>毫秒级图像识别技术，精准锁定目标元素。</li>
-                    <li><strong>逻辑编排：</strong>可视化流程编辑器，复杂业务逻辑一键配置。</li>
-                    <li><strong>异常自愈：</strong>遇到弹窗/断网自动重试，无需人工干预。</li>
-                    <li><strong>云端同步：</strong>多设备数据实时同步，随时随地掌控进度。</li>
-                </ul>
-            </div>
+<!-- ========== 板块一：简介 + 联系方式 ========== -->
+<section class="intro" id="s1">
+  <div class="container intro-grid">
+    <div class="intro-left">
+      <div class="sec-tag"><span class="dot"></span> AFANTI · DATA & SCRIPT ENGINE</div>
+      <h1 class="sec-title">大数据驱动的<br><span>智能引流引擎</span></h1>
+      <p>基于 <span class="hl">PB 级数据训练</span> 的深度学习模型，毫秒级响应，精准触达目标客群。分布式集群架构，支持百万级并发调度。</p>
+      <p>七层风控对抗体系，<span class="hl-red">封号率 &lt; 0.01%</span>。7×24 小时无人值守，已为 10,000+ 客户提供稳定服务。</p>
+      <div class="terminal">
+        <div class="terminal-body">
+          <div><span class="prompt">$</span> <span class="cmd">afanti --init --mode=production</span></div>
+          <div class="out">  → Engine v4.2.1 initialized     [OK]</div>
+          <div class="out">  → Loading ML models (PB-scale)  [OK]</div>
+          <div class="out">  → Connecting node cluster (2847) [OK]</div>
+          <div class="out">  → Anti-detection layer active    [OK]</div>
+          <div><span class="prompt">$</span> <span class="cmd">afanti --status</span></div>
+          <div class="out">  → All systems operational <span class="cursor"></span></div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- 板块三：纯文字介绍 -->
-    <section>
-        <h2 class="section-title">03 / 技术架构</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">📡</div>
-                <h4>数据采集引擎</h4>
-                <p>分布式爬虫集群，支持动态渲染与反爬对抗，日均采集数据量超千万级，为决策提供数据支撑。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🧠</div>
-                <h4>智能触达引擎</h4>
-                <p>基于深度学习的用户画像分析，智能匹配最优触达时机与话术，大幅提升转化效率。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h4>转化分析引擎</h4>
-                <p>实时数据清洗与漏斗分析，自动生成ROI报表，让每一分投入都清晰可见。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🛡️</div>
-                <h4>风控对抗引擎</h4>
-                <p>模拟真人操作轨迹，内置IP池轮换与行为伪装算法，有效规避平台风控机制。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚙️</div>
-                <h4>自动化调度引擎</h4>
-                <p>支持多线程并发与任务队列管理，资源占用低，可在低配设备上流畅运行。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h4>私有化部署方案</h4>
-                <p>支持本地化私有部署，数据不出内网，保障企业核心数据安全与隐私合规。</p>
-            </div>
+    <div>
+      <div class="panel">
+        <div class="panel-title">
+          <span class="label">◆ SYSTEM_MONITOR</span>
+          <span class="live">LIVE</span>
         </div>
-    </section>
-
-    <!-- 板块四：动图 + 图片 + 简介 -->
-    <section>
-        <h2 class="section-title">04 / 实战案例</h2>
-        
-        <!-- 案例一 -->
-        <div class="case-study">
-            <div class="case-header">
-                <span class="case-tag">CASE 01</span>
-                <span class="case-title">电商爆款引流实战</span>
-            </div>
-            <div class="case-content">
-                <div class="case-media">
-                    <!-- 请上传 case1-demo.gif -->
-                    <img src="case1-demo.gif" alt="案例一动图" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>上传<br>case1-demo.gif</div>'">
-                </div>
-                <div class="case-media">
-                    <!-- 请上传 case1-result.png -->
-                    <img src="case1-result.png" alt="案例一结果" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>上传<br>case1-result.png</div>'">
-                </div>
-                <div class="case-desc">
-                    <p><strong>痛点：</strong>传统人工引流效率低，账号易被封禁，获客成本居高不下。</p>
-                    <p><strong>方案：</strong>部署阿凡提脚本引擎，配置智能筛选规则与拟人化操作逻辑。</p>
-                    <p><strong>成果：</strong>单账号日均安全触达300+精准用户，转化率提升<strong>240%</strong>，人力成本降低80%。</p>
-                </div>
-            </div>
+        <div class="dp-row"><span class="k">引擎状态</span><span class="v up">● RUNNING</span></div>
+        <div class="dp-row"><span class="k">在线节点</span><span class="v">2,847</span></div>
+        <div class="dp-row"><span class="k">今日触达</span><span class="v up">+186,392</span></div>
+        <div class="dp-row"><span class="k">平均延迟</span><span class="v up">12ms</span></div>
+        <div class="dp-row"><span class="k">异常拦截</span><span class="v up">99.97%</span></div>
+        <div class="dp-row"><span class="k">风控触发</span><span class="v danger">0</span></div>
+        <div class="mini-chart">
+          <svg viewBox="0 0 300 60" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="mg" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#00e5ff" stop-opacity=".25"/>
+                <stop offset="100%" stop-color="#00e5ff" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M0,45 L25,38 L50,40 L75,28 L100,32 L125,18 L150,24 L175,12 L200,20 L225,8 L250,15 L275,5 L300,10 L300,60 L0,60Z" fill="url(#mg)"/>
+            <path d="M0,45 L25,38 L50,40 L75,28 L100,32 L125,18 L150,24 L175,12 L200,20 L225,8 L250,15 L275,5 L300,10" fill="none" stroke="#00e5ff" stroke-width="1.5"/>
+          </svg>
         </div>
+      </div>
 
-        <!-- 案例二 -->
-        <div class="case-study">
-            <div class="case-header">
-                <span class="case-tag">CASE 02</span>
-                <span class="case-title">私域流量池构建</span>
-            </div>
-            <div class="case-content">
-                <div class="case-media">
-                    <!-- 请上传 case2-demo.gif -->
-                    <img src="case2-demo.gif" alt="案例二动图" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>上传<br>case2-demo.gif</div>'">
-                </div>
-                <div class="case-media">
-                    <!-- 请上传 case2-result.png -->
-                    <img src="case2-result.png" alt="案例二结果" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>上传<br>case2-result.png</div>'">
-                </div>
-                <div class="case-desc">
-                    <p><strong>痛点：</strong>公域流量难以沉淀，用户流失严重，缺乏有效的留存手段。</p>
-                    <p><strong>方案：</strong>利用脚本实现跨平台自动化引流，将公域用户无缝导入企业微信私域池。</p>
-                    <p><strong>成果：</strong>30天内构建万级私域流量池，用户留存率提升至<strong>65%</strong>，复购率显著提高。</p>
-                </div>
-            </div>
+      <div class="panel" style="margin-top:20px">
+        <div class="contact-area">
+          <h4>// CONTACT_INFO</h4>
+          <div class="cc-row">
+            <div class="ic ic-c">💬</div>
+            <div><div class="lbl">WECHAT</div><div class="val">在此处填写微信号</div></div>
+          </div>
+          <div class="cc-row">
+            <div class="ic ic-g">📱</div>
+            <div><div class="lbl">PHONE</div><div class="val">在此处填写手机号</div></div>
+          </div>
+          <div class="cc-row">
+            <div class="ic ic-v">🕐</div>
+            <div><div class="lbl">SERVICE</div><div class="val">9:00 — 24:00 全年无休</div></div>
+          </div>
+          <div class="cc-row">
+            <div class="ic ic-r">🔥</div>
+            <div><div class="lbl">STATUS</div><div class="val" style="color:var(--red)">● 接单中 · 名额有限</div></div>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- 案例三 -->
-        <div class="case-study">
-            <div class="case-header">
-                <span class="case-tag">CASE 03</span>
-                <span class="case-title">竞品数据监控</span>
-            </div>
-            <div class="case-content">
-                <div class="case-media">
-                    <!-- 请上传 case3-demo.gif -->
-                    <img src="case3-demo.gif" alt="案例三动图" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>上传<br>case3-demo.gif</div>'">
-                </div>
-                <div class="case-media">
-                    <!-- 请上传 case3-result.png -->
-                    <img src="case3-result.png" alt="案例三结果" onerror="this.style.display='none'; this.parentNode.innerHTML += '<div class=\'placeholder\'>上传<br>case3-result.png</div>'">
-                </div>
-                <div class="case-desc">
-                    <p><strong>痛点：</strong>市场变化快，无法及时掌握竞品动态，决策滞后。</p>
-                    <p><strong>方案：</strong>部署7x24小时数据监控脚本，实时抓取竞品价格、活动及舆情数据。</p>
-                    <p><strong>成果：</strong>建立实时竞品数据库，市场响应速度提升<strong>300%</strong>，抢占市场先机。</p>
-                </div>
-            </div>
+<!-- ========== 板块二：图片区 双列3行 ========== -->
+<section class="gallery" id="s2">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-tag"><span class="dot"></span> VISUAL_GALLERY</div>
+      <h2 class="sec-title">运行效果<span>实拍展示</span></h2>
+      <p class="sec-desc">所有截图均来自真实生产环境，未经任何修饰处理。</p>
+    </div>
+    <div class="img-grid">
+
+      <div class="img-card reveal">
+        <span class="corner">IMG_01</span>
+        <div class="scan"></div>
+        <div class="img-box">
+          <img src="img-01.png" alt="展示1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="ph"><span class="ic">🖼️</span><span>img-01.png</span></div>
         </div>
+        <div class="img-info">
+          <h4>控制台运行界面</h4>
+          <p>任务编排、节点状态、数据流速实时监控，一目了然。</p>
+        </div>
+      </div>
 
-    </section>
+      <div class="img-card reveal">
+        <span class="corner">IMG_02</span>
+        <div class="scan"></div>
+        <div class="img-box">
+          <img src="img-02.png" alt="展示2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="ph"><span class="ic">🖼️</span><span>img-02.png</span></div>
+        </div>
+        <div class="img-info">
+          <h4>数据回流报表</h4>
+          <p>每日引流数据自动汇总，转化漏斗可视化，ROI 实时计算。</p>
+        </div>
+      </div>
+
+      <div class="img-card reveal">
+        <span class="corner">IMG_03</span>
+        <div class="scan"></div>
+        <div class="img-box">
+          <img src="img-03.png" alt="展示3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="ph"><span class="ic">🖼️</span><span>img-03.png</span></div>
+        </div>
+        <div class="img-info">
+          <h4>多账号管理矩阵</h4>
+          <p>批量账号分组管理，统一调度，一键启停，日志可追溯。</p>
+        </div>
+      </div>
+
+      <div class="img-card reveal">
+        <span class="corner">IMG_04</span>
+        <div class="scan"></div>
+        <div class="img-box">
+          <img src="img-04.png" alt="展示4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="ph"><span class="ic">🖼️</span><span>img-04.png</span></div>
+        </div>
+        <div class="img-info">
+          <h4>风控监测看板</h4>
+          <p>IP 健康度、设备指纹、行为评分，七层防护全程可视化。</p>
+        </div>
+      </div>
+
+      <div class="img-card reveal">
+        <span class="corner">IMG_05</span>
+        <div class="scan"></div>
+        <div class="img-box">
+          <img src="img-05.png" alt="展示5" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="ph"><span class="ic">🖼️</span><span>img-05.png</span></div>
+        </div>
+        <div class="img-info">
+          <h4>精准触达效果</h4>
+          <p>AI 筛选高意向用户，智能话术 A/B 测试，转化率持续优化。</p>
+        </div>
+      </div>
+
+      <div class="img-card reveal">
+        <span class="corner">IMG_06</span>
+        <div class="scan"></div>
+        <div class="img-box">
+          <img src="img-06.png" alt="展示6" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="ph"><span class="ic">🖼️</span><span>img-06.png</span></div>
+        </div>
+        <div class="img-info">
+          <h4>私有化部署架构</h4>
+          <p>本地服务器独立运行，数据完全自主可控，支持内网隔离。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== 板块三：文字详情 ========== -->
+<section class="text-block" id="s3">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-tag"><span class="dot"></span> TECHNICAL_DETAILS</div>
+      <h2 class="sec-title">产品<span>详情说明</span></h2>
+      <p class="sec-desc">全面解读阿凡提脚本引擎的核心架构与技术优势。</p>
+    </div>
+    <div class="text-list">
+
+      <div class="text-item reveal">
+        <div class="text-num">01</div>
+        <div class="text-body">
+          <h4>脚本功能概述 <span class="badge">OVERVIEW</span></h4>
+          <p>阿凡提数据/脚本是面向引流场景的 <span class="em">全自动化解决方案</span>，覆盖目标识别 → 数据采集 → 精准触达 → 转化追踪 → 数据回流的完整闭环。兼容 Windows / Linux / 云主机，<span class="green">5 分钟快速部署上线</span>。</p>
+        </div>
+        <div class="text-stat"><div class="vs">100%</div><div class="ls">AUTOMATED</div></div>
+      </div>
+
+      <div class="text-item reveal">
+        <div class="text-num">02</div>
+        <div class="text-body">
+          <h4>核心算法优势 <span class="badge">AI_ENGINE</span></h4>
+          <p>内置 <span class="em">深度学习用户画像模型</span>，PB 级历史数据训练，精准识别高意向目标。采用动态决策树 + 强化学习，脚本路径实时优化。贝叶斯 A/B 测试框架驱动话术自动迭代，<span class="green">转化率持续提升</span>。</p>
+        </div>
+        <div class="text-stat"><div class="vs">98.6%</div><div class="ls">ACCURACY</div></div>
+      </div>
+
+      <div class="text-item reveal">
+        <div class="text-num">03</div>
+        <div class="text-body">
+          <h4>风控对抗机制 <span class="badge">ANTI-DETECT</span></h4>
+          <p>七层防护：①设备指纹伪装 ②IP 池轮换 ③行为轨迹模拟 ④操作间隔随机化 ⑤流量特征混淆 ⑥协议层加密 ⑦异常自动熔断。实测 <span class="red">封号率 &lt; 0.01%</span>，远低于行业均值。风控策略 24h 监控自动适配。</p>
+        </div>
+        <div class="text-stat"><div class="vs">&lt;0.01%</div><div class="ls">BAN_RATE</div></div>
+      </div>
+
+      <div class="text-item reveal">
+        <div class="text-num">04</div>
+        <div class="text-body">
+          <h4>部署与运行环境 <span class="badge">DEPLOY</span></h4>
+          <p>三种部署模式：<span class="em">本地运行</span>（4核8G 起）/ <span class="em">云服务器</span>（2核4G 起）/ <span class="em">容器集群</span>（Docker + K8s 弹性扩缩）。内存占用 &lt; 200MB，CPU &lt; 15%，<span class="green">低配设备流畅运行</span>。</p>
+        </div>
+        <div class="text-stat"><div class="vs">&lt;200MB</div><div class="ls">RAM_USAGE</div></div>
+      </div>
+
+      <div class="text-item reveal">
+        <div class="text-num">05</div>
+        <div class="text-body">
+          <h4>数据安全与隐私 <span class="badge">SECURITY</span></h4>
+          <p>数据采用 <span class="em">AES-256 加密存储</span>，传输通道 TLS 1.3 加密。支持私有化本地部署，数据不出内网。不存储敏感信息，日志 30 天自动清理，<span class="green">全链路审计可追溯</span>。</p>
+        </div>
+        <div class="text-stat"><div class="vs">AES-256</div><div class="ls">ENCRYPTION</div></div>
+      </div>
+
+      <div class="text-item reveal">
+        <div class="text-num">06</div>
+        <div class="text-body">
+          <h4>售后服务与更新 <span class="badge">SUPPORT</span></h4>
+          <p>购买后享受 <span class="em">终身免费更新</span>，紧跟平台规则第一时间适配。一对一技术顾问对接，远程协助安装配置，<span class="red">5 分钟内响应</span>。断点续跑、异常恢复、数据备份全套保障。</p>
+        </div>
+        <div class="text-stat"><div class="vs">7×24h</div><div class="ls">SUPPORT</div></div>
+      </div>
+
+      <div class="text-item reveal">
+        <div class="text-num">07</div>
+        <div class="text-body">
+          <h4>价格方案 <span class="badge">PRICING</span></h4>
+          <p>灵活授权：<span class="em">月付 / 季付 / 年付</span> 三档可选，多开数量越高单价越低。新客户首月体验价 XX 元，不满意全额退款。企业客户支持 <span class="green">定制化开发 + 专属部署</span>。</p>
+        </div>
+        <div class="text-stat"><div class="vs">3 档</div><div class="ls">PLANS</div></div>
+      </div>
+
+      <div class="text-item reveal">
+        <div class="text-num">08</div>
+        <div class="text-body">
+          <h4>合规声明 <span class="badge">LEGAL</span></h4>
+          <p>本产品仅供 <span class="em">合法合规用途</span> 使用，禁止用于违反法律法规及平台用户协议的行为。用户须自行承担使用过程中的合规责任。我们保留对违规使用行为 <span class="red">终止服务</span> 的权利。</p>
+        </div>
+        <div class="text-stat"><div class="vs">✓</div><div class="ls">COMPLIANT</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 </main>
 
 <footer>
-    <p>© 2026 阿凡提数据/脚本 | 专业大数据引流解决方案</p>
-    <p style="margin-top: 10px;">客服微信：在此处填写微信号</p>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">⚡ 阿凡提数据/脚本</div>
+        <p>大数据驱动的专业引流自动化引擎<br>稳定 · 安全 · 高效 · 持续迭代</p>
+      </div>
+      <div class="footer-col">
+        <h4>// NAVIGATION</h4>
+        <a href="#s1">Overview</a>
+        <a href="#s2">Gallery</a>
+        <a href="#s3">Details</a>
+      </div>
+      <div class="footer-col">
+        <h4>// CONTACT</h4>
+        <p>微信：在此处填写微信号<br>电话：在此处填写手机号<br>时间：9:00 - 24:00</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 AFANTI DATA & SCRIPT · BUILT FOR COMPLIANT USE ONLY
+    </div>
+  </div>
 </footer>
+
+<script>
+// 滚动入场
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:.12,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// 导航高亮
+const ids=['s1','s2','s3'],links=document.querySelectorAll('.nav-links a');
+function onScroll(){
+  let cur='s1';
+  ids.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<200)cur=id});
+  links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+// 终端模拟输出
+const lines=[
+  {prompt:'$',cmd:'afanti --stats --last=24h',delay:3000},
+  {out:'  → Requests: 1,247,839',delay:500},
+  {out:'  → Success:   1,246,591 (99.90%)',delay:500},
+  {out:'  → Blocked:       1,248 ( 0.10%)',delay:500},
+  {prompt:'$',cmd:'afanti --optimize',delay:2000},
+  {out:'  → Model self-tuning complete',delay:600},
+  {out:'  → Performance +12.4%',delay:400},
+];
+let ti=document.querySelector('.terminal-body');
+let li=0;
+function typeLine(){
+  if(li>=lines.length)return;
+  let l=lines[li++],div=document.createElement('div');
+  if(l.prompt!==undefined)div.innerHTML=`<span class="prompt">${l.prompt}</span> <span class="cmd">${l.cmd}</span>`;
+  else div.innerHTML=`<span class="out">${l.out}</span>`;
+  ti.appendChild(div);
+  setTimeout(typeLine,l.delay);
+}
+setTimeout(typeLine,4000);
+</script>
 
 </body>
 </html>
