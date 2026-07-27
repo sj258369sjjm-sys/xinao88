@@ -2,116 +2,127 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>阿凡提数据/脚本</title>
 <style>
     *{margin:0;padding:0;box-sizing:border-box;}
     html{scroll-behavior:smooth;}
     body{
-        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
-        background:#d4d8df;
+        font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+        background:#bfc4cc;
         color:#2b2f36;
-        line-height:1.85;
+        line-height:1.8;
         font-size:17px;
         -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
+        text-rendering:optimizeLegibility;
     }
-    .container{max-width:1100px;margin:0 auto;padding:0 20px;}
+    .container{max-width:860px;margin:0 auto;padding:0 18px;}
 
-    /* ========== 导航 ========== */
-    nav{
-        position:sticky;top:0;z-index:100;
-        background:rgba(212,216,223,0.88);
-        backdrop-filter:blur(10px);
-        border-bottom:1px solid rgba(0,0,0,0.08);
+    /* 导航 */
+    header{
+        background:#bfc4cc;
         padding:14px 0;
+        position:sticky;top:0;z-index:1000;
+        border-bottom:1px solid #a8adb5;
     }
-    .nav-inner{display:flex;justify-content:space-between;align-items:center;}
-    .logo{font-size:22px;font-weight:900;color:#c0392b;letter-spacing:1.5px;}
-    .nav-links{display:flex;gap:26px;}
-    .nav-links a{text-decoration:none;color:#4a4f58;font-size:15px;transition:color .3s;}
+    .header-inner{display:flex;justify-content:space-between;align-items:center;}
+    .logo{font-size:20px;font-weight:900;color:#c0392b;letter-spacing:1px;}
+    .nav-links{display:flex;gap:18px;}
+    .nav-links a{text-decoration:none;color:#2b2f36;font-size:14px;}
     .nav-links a:hover{color:#c0392b;}
 
-    /* ========== 通用 ========== */
+    /* 通用 */
     .card{
-        background:#e2e5ea;
-        border-radius:16px;
-        border:1px solid #b8bdc6;
-        box-shadow:0 4px 20px rgba(0,0,0,0.05);
+        background:#d5d9df;
+        border-radius:14px;
+        border:1px solid #b0b5bd;
         overflow:hidden;
     }
-    .section-head{text-align:center;padding:80px 0 40px;}
-    .section-head h2{font-size:34px;font-weight:800;color:#2b2f36;margin-bottom:10px;}
-    .section-head p{font-size:16px;color:#6b7079;max-width:600px;margin:0 auto;}
-    .red{color:#c0392b;font-weight:800;}
+    .section-head{text-align:center;padding:60px 0 32px;}
+    .section-head h2{font-size:30px;font-weight:800;color:#2b2f36;margin-bottom:8px;}
+    .section-head p{font-size:15px;color:#555;}
 
-    /* ========== 板块一 ========== */
-    .hero{padding:60px 0;}
-    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
-    @media(max-width:900px){.hero-grid{grid-template-columns:1fr;}}
-    .hero h1{font-size:40px;font-weight:900;line-height:1.2;margin-bottom:16px;}
-    .hero h1 span{color:#c0392b;}
-    .hero p{color:#4a4f58;margin-bottom:20px;font-size:17px;}
+    /* 板块一 */
+    .hero{padding:40px 0;}
+    .hero h1{font-size:36px;font-weight:900;line-height:1.25;margin-bottom:14px;}
+    .hero h1 .red{color:#c0392b;}
+    .hero > p{color:#3a3f46;margin-bottom:16px;font-size:16px;}
 
-    .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px;}
-    .contact-item{background:#e2e5ea;border:1px solid #b8bdc6;border-radius:12px;padding:16px 20px;}
-    .contact-item .label{font-size:13px;color:#6b7079;margin-bottom:4px;}
-    .contact-item .value{font-size:17px;font-weight:700;color:#c0392b;font-family:monospace;}
+    .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:24px;}
+    .contact-item{
+        background:#d5d9df;
+        border:1px solid #b0b5bd;
+        border-radius:12px;
+        padding:14px 18px;
+    }
+    .contact-item .label{font-size:12px;color:#666;margin-bottom:3px;}
+    .contact-item .value{font-size:16px;font-weight:700;color:#c0392b;font-family:monospace;}
+    .contact-item .value.green{color:#2e8b2e;}
+    .contact-item .value.dark-red{color:#b03030;}
 
-    /* ========== 板块二 ========== */
-    .gallery{background:#c8cdd5;padding:60px 0;}
-    .img-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
-    @media(max-width:768px){.img-grid{grid-template-columns:1fr;}}
-    .img-card img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;transition:transform .4s;}
-    .img-card:hover img{transform:scale(1.02);}
-    .img-card .caption{padding:16px 20px;}
-    .img-card h4{font-size:17px;font-weight:600;color#2b2f36;margin-bottom:4px;}
-    .img-card p{font-size:15px;color:#6b7079;}
-    .img-code{font-size:12px;color:#6b7079;font-family:monospace;padding:8px 20px;border-bottom:1px solid #b8bdc6;background:#d8dbdf;}
+    /* 板块二 */
+    .gallery{background:#b5bac3;padding:50px 0;}
+    .img-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+    .img-card img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;}
+    .img-card .caption{padding:14px 16px;}
+    .img-card h4{font-size:15px;font-weight:600;color:#2b2f36;margin-bottom:3px;}
+    .img-card p{font-size:13px;color:#666;}
+    .img-code{font-size:11px;color:#666;font-family:monospace;padding:6px 16px;border-bottom:1px solid #b0b5bd;background:#c8ccd3;}
 
-    /* ========== 板块三 ========== */
-    .details{padding:60px 0;}
-    .detail-card{padding:34px 38px;}
-    .detail-card p{margin-bottom:18px;font-size:17px;}
-    .detail-card strong{color:#c0392b;font-size:18px;font-weight:800;}
+    /* 板块三 */
+    .details{padding:50px 0;}
+    .detail-card{padding:28px 32px;}
+    .detail-card p{margin-bottom:16px;font-size:16px;color:#3a3f46;}
+    .detail-card strong{color:#c0392b;font-size:17px;font-weight:800;}
 
-    .num-list{padding-left:0;list-style:none;counter-reset:step-counter;}
+    .num-list{padding-left:0;list-style:none;counter-reset:step;}
     .num-list li{
-        counter-increment:step-counter;
+        counter-increment:step;
         position:relative;
-        padding-left:54px;
-        margin-bottom:26px;
-        font-size:17px;
+        padding-left:48px;
+        margin-bottom:22px;
+        font-size:16px;
         line-height:1.9;
+        color:#3a3f46;
     }
     .num-list li::before{
-        content:counter(step-counter);
-        position:absolute;left:0;top:0;
-        width:36px;height:36px;
+        content:counter(step);
+        position:absolute;left:0;top:2px;
+        width:34px;height:34px;
         background:#c0392b;
         color:#fff;
         border-radius:50%;
         display:flex;align-items:center;justify-content:center;
-        font-weight:700;font-size:15px;
+        font-weight:700;font-size:14px;
     }
 
-    /* ========== 页脚 ========== */
-    footer{background:#c8cdd5;border-top:1px solid #b8bdc6;padding:50px 0;text-align:center;}
-    footer h3{font-size:24px;font-weight:800;color:#2b2f36;margin-bottom:10px;}
-    footer .wechat{font-size:17px;color:#c0392b;font-family:monospace;margin-bottom:6px;}
-    footer .phone{font-size:15px;color:#6b7079;font-family:monospace;margin-bottom:20px;}
-    footer .copy{font-size:13px;color:#8b95a3;}
+    /* 页脚 */
+    footer{background:#b5bac3;border-top:1px solid #a8adb5;padding:40px 0;text-align:center;}
+    footer h3{font-size:20px;font-weight:800;color:#2b2f36;margin-bottom:8px;}
+    footer .wechat{font-size:16px;color:#c0392b;font-family:monospace;margin-bottom:4px;}
+    footer .phone{font-size:14px;color:#666;font-family:monospace;margin-bottom:16px;}
+    footer .copy{font-size:12px;color:#888;}
 
     /* 滚动条 */
     ::-webkit-scrollbar{width:6px;}
-    ::-webkit-scrollbar-track{background:#d4d8df;}
-    ::-webkit-scrollbar-thumb{background:#a8adb5;border-radius:3px;}
+    ::-webkit-scrollbar-track{background:#bfc4cc;}
+    ::-webkit-scrollbar-thumb{background:#9aa0a8;border-radius:3px;}
+
+    /* 手机适配 */
+    @media(max-width:768px){
+        .img-grid{grid-template-columns:1fr;}
+        .contact-grid{grid-template-columns:1fr;}
+        .hero h1{font-size:30px;}
+        .section-head h2{font-size:26px;}
+    }
 </style>
 </head>
 <body>
 
 <!-- 导航 -->
-<nav>
-    <div class="container nav-inner">
+<header>
+    <div class="container header-inner">
         <div class="logo">阿凡提数据/脚本</div>
         <div class="nav-links">
             <a href="#s1">核心简介</a>
@@ -119,42 +130,40 @@
             <a href="#s3">玩法详解</a>
         </div>
     </div>
-</nav>
+</header>
 
 <!-- 板块一：简介 -->
 <section class="hero" id="s1">
-    <div class="container hero-grid">
-        <div>
-            <h1>大数据驱动的<br><span>智能引流引擎</span></h1>
-            <p>基于 PB 级数据训练，毫秒级响应，精准触达同城高净值人群。分布式架构支持百万级并发，内置 AI 风控对抗模型，实现 7x24 小时无人值守稳定运行。</p>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <div class="label">微信客服</div>
-                    <div class="value">在此处填写微信号</div>
-                </div>
-                <div class="contact-item">
-                    <div class="label">联系电话</div>
-                    <div class="value">在此处填写手机号</div>
-                </div>
-                <div class="contact-item">
-                    <div class="label">服务时间</div>
-                    <div class="value" style="color:#4a8f4a;">9:00 — 24:00</div>
-                </div>
-                <div class="contact-item">
-                    <div class="label">接单状态</div>
-                    <div class="value" style="color:#c94a3a;">● 接单中 · 名额有限</div>
-                </div>
+    <div class="container">
+        <h1>大数据驱动的<br><span class="red">智能引流引擎</span></h1>
+        <p>基于 PB 级数据训练，毫秒级响应，精准触达同城高净值人群。分布式架构支持百万级并发，内置 AI 风控对抗模型，实现 7x24 小时无人值守稳定运行。</p>
+
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div class="label">微信客服</div>
+                <div class="value">在此处填写微信号</div>
+            </div>
+            <div class="contact-item">
+                <div class="label">联系电话</div>
+                <div class="value">在此处填写手机号</div>
+            </div>
+            <div class="contact-item">
+                <div class="label">服务时间</div>
+                <div class="value green">9:00 — 24:00</div>
+            </div>
+            <div class="contact-item">
+                <div class="label">接单状态</div>
+                <div class="value dark-red">● 接单中 · 名额有限</div>
             </div>
         </div>
-        <div class="card">
-            <div style="padding:26px;">
-                <h3 style="font-size:19px;margin-bottom:16px;color:#2b2f36;">核心玩法简述</h3>
-                <p style="font-size:17px;">高效率同城引流主要分为两类。</p>
-                <br>
-                <p><strong class="red">1. 从消费条件入手 — 锁定目标：</strong>无论洗浴会所，商务KTV，外围，都要有消费能力，不然你加一堆口嗨仔消耗你账号，浪费你时间，目标锁定同城开店开公司的有钱人，一个城市大约有好几万男性老板，把他们的手机号提出来后一键导入通讯录，抖音快手小红书→添加朋友→通讯录板块就会显示你手机里存的联系人的账号，现在已知同城这几万男性老板的抖音.快手.小红书账号后就好操作了，不管是对他们账号点赞关注还是无限留痕，都是为了让同城这几万有钱人来看你主页和作品，看上你发的妹子了自然会找你安排，不像打工仔砍价还随时换城市。这种加过来的不会口嗨：改天 下次、发工资再来。所以这种源头来的成单率极高，还会带他们圈子朋友来，后期几年都是长期收益的。</p>
-                <br>
-                <p><strong class="red">2. 直接挖同行客户：</strong>如果你靠发作品吸引潜在客户效率太慢。不如二次清洗同行客户，同行作品评论区关键词识别：滴滴，在哪，位置，几张，以及同行吸引的粉丝列表都是目标群体，我这边提供的脚本软件主要是识别评论区上述关键词，还有独家识别对方IP地址和男女功能，对精准目标点赞.关注.无限留痕也是为了让他们来看你主页和作品。</p>
-            </div>
+
+        <div class="card" style="margin-top:30px;padding:24px;">
+            <h3 style="font-size:18px;margin-bottom:14px;color:#2b2f36;">核心玩法简述</h3>
+            <p style="font-size:16px;color:#3a3f46;">高效率同城引流主要分为两类。</p>
+            <br>
+            <p style="font-size:16px;"><strong style="color:#c0392b;font-size:17px;font-weight:800;">1. 从消费条件入手 — 锁定目标：</strong>无论洗浴会所，商务KTV，外围，都要有消费能力，不然你加一堆口嗨仔消耗你账号，浪费你时间，目标锁定同城开店开公司的有钱人，一个城市大约有好几万男性老板，把他们的手机号提出来后一键导入通讯录，抖音快手小红书→添加朋友→通讯录板块就会显示你手机里存的联系人的账号，现在已知同城这几万男性老板的抖音.快手.小红书账号后就好操作了，不管是对他们账号点赞关注还是无限留痕，都是为了让同城这几万有钱人来看你主页和作品，看上你发的妹子了自然会找你安排，不像打工仔砍价还随时换城市。这种加过来的不会口嗨：改天 下次、发工资再来。所以这种源头来的成单率极高，还会带他们圈子朋友来，后期几年都是长期收益的。</p>
+            <br>
+            <p style="font-size:16px;"><strong style="color:#c0392b;font-size:17px;font-weight:800;">2. 直接挖同行客户：</strong>如果你靠发作品吸引潜在客户效率太慢。不如二次清洗同行客户，同行作品评论区关键词识别：滴滴，在哪，位置，几张，以及同行吸引的粉丝列表都是目标群体，我这边提供的脚本软件主要是识别评论区上述关键词，还有独家识别对方IP地址和男女功能，对精准目标点赞.关注.无限留痕也是为了让他们来看你主页和作品。</p>
         </div>
     </div>
 </section>
@@ -164,37 +173,37 @@
     <div class="container">
         <div class="section-head">
             <h2>运行效果实拍</h2>
-            <p>所有截图均为真实生产环境，无任何修饰处理</p>
+            <p>所有截图均为真实生产环境</p>
         </div>
         <div class="img-grid">
             <div class="card img-card">
                 <div class="img-code">IMG_01</div>
-                <img src="img-01.png" alt="控制台运行界面" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect fill=%22%23bfc4cc%22 width=%22400%22 height=%22225%22/><text fill=%22%236b7079%22 font-size=%2220%22 x=%22200%22 y=%22115%22 text-anchor=%22middle%22>img-01.png</text></svg>'">
+                <img src="img-01.png" alt="控制台运行界面" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect fill=%22%23a8adb5%22 width=%22400%22 height=%22225%22/><text fill=%22%23555%22 font-size=%2220%22 x=%22200%22 y=%22115%22 text-anchor=%22middle%22>img-01.png</text></svg>'">
                 <div class="caption"><h4>控制台运行界面</h4><p>任务编排、节点状态、数据流速实时监控</p></div>
             </div>
             <div class="card img-card">
                 <div class="img-code">IMG_02</div>
-                <img src="img-02.png" alt="数据回流报表" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect fill=%22%23bfc4cc%22 width=%22400%22 height=%22225%22/><text fill=%22%236b7079%22 font-size=%2220%22 x=%22200%22 y=%22115%22 text-anchor=%22middle%22>img-02.png</text></svg>'">
+                <img src="img-02.png" alt="数据回流报表" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect fill=%22%23a8adb5%22 width=%22400%22 height=%22225%22/><text fill=%22%23555%22 font-size=%2220%22 x=%22200%22 y=%22115%22 text-anchor=%22middle%22>img-02.png</text></svg>'">
                 <div class="caption"><h4>数据回流报表</h4><p>每日引流数据自动汇总，ROI实时计算</p></div>
             </div>
             <div class="card img-card">
                 <div class="img-code">IMG_03</div>
-                <img src="img-03.png" alt="多账号管理矩阵" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect fill=%22%23bfc4cc%22 width=%22400%22 height=%22225%22/><text fill=%22%236b7079%22 font-size=%2220%22 x=%22200%22 y=%22115%22 text-anchor=%22middle%22>img-03.png</text></svg>'">
+                <img src="img-03.png" alt="多账号管理矩阵" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect fill=%22%23a8adb5%22 width=%22400%22 height=%22225%22/><text fill=%22%23555%22 font-size=%2220%22 x=%22200%22 y=%22115%22 text-anchor=%22middle%22>img-03.png</text></svg>'">
                 <div class="caption"><h4>多账号管理矩阵</h4><p>批量账号分组管理，统一调度，一键启停</p></div>
             </div>
             <div class="card img-card">
                 <div class="img-code">IMG_04</div>
-                <img src="img-04.png" alt="风控监测看板" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect fill=%22%23bfc4cc%22 width=%22400%22 height=%22225%22/><text fill=%22%236b7079%22 font-size=%2220%22 x=%22200%22 y=%22115%22 text-anchor=%22middle%22>img-04.png</text></svg>'">
+                <img src="img-04.png" alt="风控监测看板" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect fill=%22%23a8adb5%22 width=%22400%22 height=%22225%22/><text fill=%22%23555%22 font-size=%2220%22 x=%22200%22 y=%22115%22 text-anchor=%22middle%22>img-04.png</text></svg>'">
                 <div class="caption"><h4>风控监测看板</h4><p>IP健康度、设备指纹、行为评分全程可视</p></div>
             </div>
             <div class="card img-card">
                 <div class="img-code">IMG_05</div>
-                <img src="img-05.png" alt="精准触达效果" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect fill=%22%23bfc4cc%22 width=%22400%22 height=%22225%22/><text fill=%22%236b7079%22 font-size=%2220%22 x=%22200%22 y=%22115%22 text-anchor=%22middle%22>img-05.png</text></svg>'">
+                <img src="img-05.png" alt="精准触达效果" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect fill=%22%23a8adb5%22 width=%22400%22 height=%22225%22/><text fill=%22%23555%22 font-size=%2220%22 x=%22200%22 y=%22115%22 text-anchor=%22middle%22>img-05.png</text></svg>'">
                 <div class="caption"><h4>精准触达效果</h4><p>AI筛选高意向用户，转化率持续优化</p></div>
             </div>
             <div class="card img-card">
                 <div class="img-code">IMG_06</div>
-                <img src="img-06.png" alt="私有化部署架构" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect fill=%22%23bfc4cc%22 width=%22400%22 height=%22225%22/><text fill=%22%236b7079%22 font-size=%2220%22 x=%22200%22 y=%22115%22 text-anchor=%22middle%22>img-06.png</text></svg>'">
+                <img src="img-06.png" alt="私有化部署架构" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect fill=%22%23a8adb5%22 width=%22400%22 height=%22225%22/><text fill=%22%23555%22 font-size=%2220%22 x=%22200%22 y=%22115%22 text-anchor=%22middle%22>img-06.png</text></svg>'">
                 <div class="caption"><h4>私有化部署架构</h4><p>本地服务器独立运行，数据完全自主可控</p></div>
             </div>
         </div>
